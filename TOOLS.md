@@ -41,3 +41,31 @@
    - 国内网站/大模型域名 → DIRECT
    - OpenClaw 相关域名 → DIRECT
    - 其他所有请求 → PROXY 76.13.219.143:8888
+
+## 钉钉通道配置
+
+- **插件名称：** dingtalk-connector
+- **版本：** 0.6.0
+- **状态：** ✅ 已安装并加载
+- **配置文件：** `~/.openclaw/openclaw.json`
+- **文档：** `钉钉通道配置指南.md`
+
+### 配置详情
+
+1. **钉钉应用信息**
+   - Client ID (AppKey): dingyscopnptfxm4hg8q
+   - Client Secret: 已配置
+   - Gateway Token: 已配置
+   - 消息接收模式: Stream 模式
+
+2. **必需权限**
+   - Card.Streaming.Write ✅
+   - Card.Instance.Write ✅
+   - qyapi_robot_sendmsg ✅
+
+3. **功能特性**
+   - AI Card 流式响应
+   - 会话持久化（30分钟超时）
+   - 双向通信
+   - 图片自动上传
+   - 支持会话命令：/new, /reset, /clear, 新会话, 重新开始, 清空对话
