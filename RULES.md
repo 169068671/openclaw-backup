@@ -139,6 +139,16 @@ rsync -avz --progress root@76.13.219.143:/root/largefile.tar.gz ~/
 
 **规则：国外网站直接在 Hostinger VPS 上访问，不使用本地代理。**
 
+**状态：** ✅ SOCKS5 代理已停用（2026-03-02 22:44）
+
+### 使用场景
+
+1. **浏览国外网站** - 直接 SSH 到 VPS 使用 lynx/w3m
+2. **下载大型文件** - VPS 上 wget/curl 下载后 scp 到本地
+3. **克隆 Git 仓库** - VPS 上 git clone 后传输到本地
+4. **下载 Docker 镜像** - VPS 上 docker pull 后传输到本地
+5. **下载机器学习模型** - VPS 上下载后传输到本地
+
 ### 使用场景
 
 1. **浏览国外网站** - 直接 SSH 到 VPS 使用 lynx/w3m
