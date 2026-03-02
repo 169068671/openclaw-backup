@@ -6,14 +6,19 @@
 - **Git 仓库：** `/home/admin/openclaw/workspace/.git` (初始提交: cfd8d95)
 - **备份策略：** 重要操作前创建新备份，Git 保存历史版本
 
-## VPS (Hostinger)
+## Hostinger VPS
 
 - **地址：** 76.13.219.143
 - **主机名：** srv1437164
 - **用户：** root
 - **密码：** Whj001.Whj001
 - **连接命令：** `sshpass -p 'Whj001.Whj001' ssh root@76.13.219.143`
-- **状态：** SSH 连接超时 (2026-03-02 13:40)
+- **状态：** ✅ SSH 连接正常 (2026-03-02 22:54)
+- **Guacamole：** ✅ 已部署，http://76.13.219.143:8081/guacamole
+- **Docker Compose：** ✅ 已安装
+- **MySQL：** ✅ 运行中（3306 端口）
+- **Guacamole Daemon：** ✅ 运行中（4822 端口）
+- **Guacamole Web：** ✅ 运行中（8081:8080 端口）
 
 ## HTTP 代理配置
 
