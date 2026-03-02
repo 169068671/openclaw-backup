@@ -22,6 +22,7 @@
 - **PAC 文件：** `/opt/proxy.pac`
 - **OpenClaw 规则：** 必须直连（当前已确认走直连）
 - **文档：** `HTTP代理配置方案-HostingerVPS.md`
+- **故障排查：** `HTTP代理故障排查-Google无法访问.md`
 - **状态：** ✅ 已完成配置，代理正常运行
 
 ### 配置详情
@@ -29,18 +30,53 @@
 1. **Hostinger VPS (76.13.219.143)**
    - Tinyproxy 已安装并运行
    - 监听端口：8888
-   - systemd 服务已配置开机自启
-   - 防火墙规则已添加
+   - MaxClients: 100
+   - Timeout: 600s
+   - 防火墙：ufw inactive（允许所有流量）
 
-2. **阿里云本地**
+2. **Tinyproxy 配置**
+   - Port: 8888
+   - Listen: 0.0.0.0
+   - Allow: 0.0.0.0/0（允许所有客户端）
+   - DisableViaHeader: Yes（隐藏代理头）
+
+3. **阿里云本地**
    - PAC 文件已创建：`/opt/proxy.pac`
    - OpenClaw 进程确认走直连（未设置代理）
    - admin 用户和系统环境均未设置代理
 
-3. **代理规则**
+4. **代理规则**
    - 国内网站/大模型域名 → DIRECT
    - OpenClaw 相关域名 → DIRECT
    - 其他所有请求 → PROXY 76.13.219.143:8888
+
+5. **测试结果（2026-03-02 14:08）**
+   - Google 访问：✅ 成功
+   - 国内网站：✅ 直连
+   - OpenClaw：✅ 直连
+
+### 问题修复记录
+
+**问题：** 2026-03-02 14:07，无法通过代理访问 www.google.com
+
+**原因：** Tinyproxy 配置缺少 `Allow 0.0.0.0/0` 规则
+
+**解决方案：**
+```conf
+Port 8888
+Listen 0.0.0.0
+Allow 0.0.0.0/0
+LogLevel Info
+MaxClients 100
+DisableViaHeader Yes
+Timeout 600
+```
+
+**测试验证：**
+```bash
+curl -I -x http://76.13.219.143:8888 https://www.google.com
+HTTP/2 200 ✅
+```
 
 ## 钉钉通道配置
 
