@@ -22,7 +22,8 @@
 - **PAC 文件：** `/opt/proxy.pac`
 - **OpenClaw 规则：** 必须直连（当前已确认走直连）
 - **文档：** `HTTP代理配置方案-HostingerVPS.md`
-- **故障排查：** `HTTP代理故障排查-Google无法访问.md`
+- **故障排查1：** `HTTP代理故障排查-Google无法访问.md`
+- **故障排查2：** `HTTP代理故障排查-Google无法访问-第二次.md`
 - **状态：** ✅ 已完成配置，代理正常运行
 
 ### 配置详情
@@ -34,11 +35,12 @@
    - Timeout: 600s
    - 防火墙：ufw inactive（允许所有流量）
 
-2. **Tinyproxy 配置**
+2. **Tinyproxy 配置（最新）**
    - Port: 8888
    - Listen: 0.0.0.0
    - Allow: 0.0.0.0/0（允许所有客户端）
    - DisableViaHeader: Yes（隐藏代理头）
+   - ConnectPort: 443, 80（支持 HTTPS/HTTP CONNECT）
 
 3. **阿里云本地**
    - PAC 文件已创建：`/opt/proxy.pac`
@@ -50,14 +52,14 @@
    - OpenClaw 相关域名 → DIRECT
    - 其他所有请求 → PROXY 76.13.219.143:8888
 
-5. **测试结果（2026-03-02 14:08）**
-   - Google 访问：✅ 成功
+5. **测试结果（2026-03-02 14:20）**
+   - Google 访问：✅ 成功（HTTPS）
    - 国内网站：✅ 直连
    - OpenClaw：✅ 直连
 
 ### 问题修复记录
 
-**问题：** 2026-03-02 14:07，无法通过代理访问 www.google.com
+**问题 1：** 2026-03-02 14:07，无法通过代理访问 www.google.com
 
 **原因：** Tinyproxy 配置缺少 `Allow 0.0.0.0/0` 规则
 
@@ -70,6 +72,23 @@ LogLevel Info
 MaxClients 100
 DisableViaHeader Yes
 Timeout 600
+```
+
+**问题 2：** 2026-03-02 14:18，HTTPS 网站无法访问
+
+**原因：** Tinyproxy 配置缺少 `ConnectPort`，不支持 HTTPS CONNECT 方法
+
+**解决方案：**
+```conf
+Port 8888
+Listen 0.0.0.0
+Allow 0.0.0.0/0
+LogLevel Info
+MaxClients 100
+DisableViaHeader Yes
+Timeout 600
+ConnectPort 443  ← 新增
+ConnectPort 80   ← 新增
 ```
 
 **测试验证：**
