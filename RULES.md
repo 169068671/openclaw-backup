@@ -135,6 +135,52 @@ rsync -avz --progress root@76.13.219.143:/root/largefile.tar.gz ~/
 
 ---
 
+## 🌐 访问国外网站策略
+
+**规则：国外网站直接在 Hostinger VPS 上访问，不使用本地代理。**
+
+### 使用场景
+
+1. **浏览国外网站** - 直接 SSH 到 VPS 使用 lynx/w3m
+2. **下载大型文件** - VPS 上 wget/curl 下载后 scp 到本地
+3. **克隆 Git 仓库** - VPS 上 git clone 后传输到本地
+4. **下载 Docker 镜像** - VPS 上 docker pull 后传输到本地
+5. **下载机器学习模型** - VPS 上下载后传输到本地
+
+### 操作流程
+
+**快速访问：**
+```bash
+# SSH 到 VPS
+ssh root@76.13.219.143
+
+# 使用 lynx 浏览（文本浏览器）
+lynx https://www.google.com
+
+# 或使用 w3m
+w3m https://www.github.com
+```
+
+**下载文件：**
+```bash
+# VPS 上下载
+ssh root@76.13.219.143 "wget https://example.com/file.zip"
+
+# 传输到本地
+scp root@76.13.219.143:~/file.zip ~/
+```
+
+### 优势
+
+| 优势 | 说明 |
+|------|------|
+| 速度快 | VPS 直接访问，无中转延迟 |
+| 稳定 | VPS 网络稳定 |
+| 简单 | 无需本地代理配置 |
+| 批量 | 可以批量下载多个文件 |
+
+---
+
 ## 🚨 金科玉律：永不断开连接
 
 **规则：不管做什么设置，一定要确保能再次打开。每次改变后，都要 ping 下自己，确保下次能打开。**
