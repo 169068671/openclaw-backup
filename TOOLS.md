@@ -141,3 +141,85 @@ Allow 0.0.0.0/0
    - 接收消息（钉钉→OpenClaw）：✅ 测试成功 (2026-03-02 14:04)
    - 主动发送（OpenClaw→钉钉）：✅ 测试成功 (2026-03-02 14:07)
    - 测试用户ID：193200103629107416
+
+---
+
+## res-downloader（视频号/抖音下载器）
+
+- **项目名称：** res-downloader
+- **作者：** putyy
+- **GitHub：** https://github.com/putyy/res-downloader
+- **GitHub Stars：** 15,543 ⭐⭐⭐⭐⭐
+- **状态：** ✅ 已编译
+- **编译日期：** 2026-03-03 19:47
+- **可执行文件：** `/home/admin/openclaw/workspace/res-downloader/build/bin/res-downloader`
+- **文件大小：** 18M
+- **编译时间：** 1分28秒
+
+### 功能特性
+
+| 功能 | 支持 |
+|-----|------|
+| 微信视频号 | ✅ |
+| 小程序 | ✅ |
+| 抖音 | ✅ |
+| 快手 | ✅ |
+| 小红书 | ✅ |
+| m3u8 | ✅ |
+| 直播流 | ✅ |
+| 酷狗音乐 | ✅ |
+| QQ音乐 | ✅ |
+| 代理抓包 | ✅ |
+
+### 运行方法
+
+```bash
+# 进入项目目录
+cd /home/admin/openclaw/workspace/res-downloader
+
+# 运行可执行文件
+./build/bin/res-downloader
+```
+
+### 使用步骤
+
+1. **启动程序**：运行 `./build/bin/res-downloader`
+2. **启动代理**：首页左上角点击"启动代理"
+3. **选择资源类型**：默认全部
+4. **获取资源**：在外部打开资源页面（视频号、小程序、网页等）
+5. **查看资源**：返回软件首页，即可看到资源列表
+
+### 编译环境
+
+| 依赖 | 版本 |
+|-----|------|
+| Go | 1.22.0 |
+| Wails CLI | 2.11.0 |
+| Node.js | v24.14.0 |
+| npm | 11.9.0 |
+| pkg-config | 0.29.2 |
+| libwebkit2gtk-4.1-dev | 2.50.4 |
+
+### 项目位置
+
+- **源代码：** `/home/admin/openclaw/workspace/res-downloader/`
+- **可执行文件：** `/home/admin/openclaw/workspace/res-downloader/build/bin/res-downloader`
+- **编译记录：** `res-downloader-编译记录.md`、`res-downloader-编译记录-完成.md`
+
+---
+
+## 下载工具总览
+
+| 工具 | 类型 | 功能 | 安装状态 | 位置 |
+|-----|------|------|---------|------|
+| **yutto** | 视频 | Bilibili 专用 | ✅ 2.1.1 | ~/.local/bin/yutto |
+| **yt-dlp** | 视频 | 综合下载（1000+网站） | ✅ 2026.02.21 | ~/.local/bin/yt-dlp |
+| **musicdl** | 音乐 | 音乐/有声读物（50+平台） | ✅ 2.9.7 | ~/.local/bin/musicdl |
+| **res-downloader** | 视频/音频 | 视频号/抖音/小红书等 | ✅ 已编译 | build/bin/res-downloader |
+
+### 推荐使用
+
+- **Bilibili 下载**：yutto（专用，更稳定）
+- **综合视频下载**：yt-dlp（支持1000+网站）
+- **音乐/有声读物**：musicdl（50+音乐平台）
+- **微信视频号/抖音/小红书**：res-downloader（桌面应用，代理抓包）
