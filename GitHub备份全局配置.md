@@ -143,7 +143,48 @@ cp -r /tmp/restore/workspace-backup/* ~/openclaw/workspace/
 
 ---
 
-## ⚠️ 重要规则
+## 🚨 重要规则
+
+### 最高优先级规则（来自 RULES.md）
+
+**第一规则：永不断开连接**
+- 每次更改后必须测试连接
+- 确保下次能够启动 OpenClaw
+- 详见：`RULES.md`
+
+**第二规则：操作前备份**
+- 修改配置前必须创建备份
+- 使用 Git commit 或文件复制
+- 详见：`RULES.md`
+
+### 连接测试清单
+
+**执行任何重要操作后，必须测试**：
+
+1. **OpenClaw 服务**
+   ```bash
+   systemctl status openclaw-gateway
+   ```
+
+2. **网络连接**
+   ```bash
+   ping -c 3 8.8.8.8
+   curl -I https://github.com
+   ```
+
+3. **Git 仓库**
+   ```bash
+   cd /home/admin/openclaw/workspace && git status
+   ```
+
+4. **VPS 连接**
+   ```bash
+   sshpass -p 'Whj001.Whj001' ssh root@76.13.219.143 "echo OK"
+   ```
+
+**所有测试通过后，才能继续执行其他操作。**
+
+---
 
 ### 禁止更改
 1. ❌ **VPS仓库地址**：必须是 `git@github.com:169068671/vps-backup.git`

@@ -1,240 +1,299 @@
-# RULES.md - 全局规则
+# RULES.md - 最高优先级规则
+
+> 这是绝对不能违反的铁律，高于所有其他规则
+> 最后更新：2026-03-03
 
 ---
 
-## 🌐 全局下载规则：优先使用 VPS
+## 🚨 第一规则：永不断开连接
 
-**规则：所有需要外网下载的内容，优先在 Hostinger VPS 上下载，然后传输到本地。**
+**核心理念**：不管做什么设置，一定要确保能再次打开。每次改变后，都要测试连接，确保下次能启动。
 
-### 适用场景
+### 适用范围
 
-这条规则适用于所有需要从国外下载资源的情况：
+**每次执行以下操作后，必须执行连接测试**：
+- ✅ 修改系统配置文件
+- ✅ 更新 OpenClaw 配置
+- ✅ 修改网络/代理设置
+- ✅ 更改 SSH 配置
+- ✅ 安装/卸载软件
+- ✅ 修改防火墙规则
+- ✅ 重启服务
+- ✅ 任何可能影响系统稳定性的操作
 
-1. **Docker 镜像** - docker pull
-2. **Python 包** - pip install（尤其是大型包）
-3. **机器学习模型** - Hugging Face、PyTorch、TensorFlow 模型
-4. **软件安装包** - wget/curl 下载的大型文件
-5. **Git 克隆** - GitHub 等国外仓库
-6. **其他国外资源** - CDN、API 调用等
+### 测试清单
 
-### 操作流程
-
-**步骤 1：在 VPS 上下载**
-
+#### 1. OpenClaw 服务测试
 ```bash
-# SSH 到 VPS
-ssh root@76.13.219.143
+# 检查服务状态
+systemctl status openclaw-gateway
 
-# 在 VPS 上下载资源
-# 例如：Docker 镜像
-docker pull ubuntu:latest
+# 检查进程
+ps aux | grep openclaw
 
-# 例如：Python 包
-pip install package-name
-
-# 例如：模型文件
-python3 -c "from transformers import AutoModel; AutoModel.from_pretrained('model-name')"
+# 检查端口
+netstat -tuln | grep gateway
 ```
 
-**步骤 2：打包/导出**
+**预期结果**：
+- ✅ 服务状态为 `active (running)`
+- ✅ 进程正在运行
+- ✅ 端口正常监听
 
+#### 2. 网络连接测试
 ```bash
-# Docker 镜像导出
-docker save ubuntu:latest -o ubuntu-latest.tar
+# 测试本地网络
+ping -c 3 127.0.0.1
 
-# Python 包/模型文件
-tar -czf models.tar.gz ~/.cache/huggingface/hub/
+# 测试互联网连接
+ping -c 3 8.8.8.8
 
-# 其他文件
-tar -czf data.tar.gz /path/to/data
+# 测试 GitHub 连接
+curl -I https://github.com
+
+# 测试 SSH 连接
+ssh -T git@github.com
 ```
 
-**步骤 3：传输到本地**
+**预期结果**：
+- ✅ 本地网络：100% 成功
+- ✅ 互联网：低延迟（<100ms）
+- ✅ GitHub：HTTP 200
+- ✅ SSH：成功认证
 
+#### 3. Git 仓库测试
 ```bash
-# 使用 scp 传输
-scp root@76.13.219.143:/root/ubuntu-latest.tar ~/
-scp root@76.13.219.143:/root/models.tar.gz ~/
+# 测试 VPS 备份仓库
+ssh root@76.13.219.143 "cd /vps-backup && git status"
 
-# 或使用 rsync（支持断点续传）
-rsync -avz --progress root@76.13.219.143:/root/models.tar.gz ~/
+# 测试本地仓库
+cd /home/admin/openclaw/workspace && git status
 ```
 
-**步骤 4：本地导入/解压**
+**预期结果**：
+- ✅ VPS：能正常访问仓库
+- ✅ 本地：能正常访问仓库
 
+#### 4. SSH 隧道测试（如使用）
 ```bash
-# Docker 镜像导入
-docker load -i ~/ubuntu-latest.tar
+# 检查端口
+netstat -tuln | grep 1080
 
-# Python 包/模型解压
-tar -xzf ~/models.tar.gz -C ~/.cache/huggingface/hub/
+# 测试代理
+curl -x socks5://127.0.0.1:1080 -I https://www.google.com
 ```
 
-### 为什么这样做？
+**预期结果**：
+- ✅ 端口 1080 正常监听
+- ✅ 代理能正常访问
 
-| 方面 | 直接下载 | VPS 中转 | 优势 |
-|------|---------|----------|------|
-| **速度** | 慢（~300 KB/s） | 快（~20 MB/s） | ⚡⚡⚡ |
-| **稳定性** | 经常超时/失败 | 稳定 | ✅ |
-| **成功率** | 低 | 高 | ✅ |
-| **时间成本** | 长（几小时） | 短（几分钟） | ⏰ |
-
-### VPS 信息
-
-| 项目 | 配置值 |
-|------|--------|
-| 地址 | 76.13.219.143 |
-| 用户 | root |
-| 密码 | Whj001.Whj001 |
-| 连接命令 | `ssh root@76.13.219.143` |
-| 传输命令 | `scp root@76.13.219.143:/path/file .` |
-
-### 常用命令
-
-**SSH 连接：**
+#### 5. 文件系统测试
 ```bash
-ssh root@76.13.219.143
+# 检查磁盘空间
+df -h
+
+# 检查重要文件
+ls -lh ~/.openclaw/openclaw.json
+ls -lh /home/admin/openclaw/workspace/
+
+# 测试读写
+echo "test" > /tmp/test && cat /tmp/test && rm /tmp/test
 ```
 
-**文件传输（从 VPS 到本地）：**
-```bash
-scp root@76.13.219.143:/root/file.tar.gz ~/
-```
+**预期结果**：
+- ✅ 磁盘空间充足（>10%）
+- ✅ 配置文件存在
+- ✅ 读写功能正常
 
-**目录传输（从 VPS 到本地）：**
-```bash
-scp -r root@76.13.219.143:/root/directory ~/
-```
+### 测试失败处理
 
-**使用 rsync（断点续传）：**
-```bash
-rsync -avz --progress root@76.13.219.143:/root/largefile.tar.gz ~/
-```
+**如果任何测试失败**：
+1. ❌ 立即停止当前操作
+2. 📝 记录失败的测试项
+3. 🔧 尝试恢复到之前的状态
+4. 📢 向用户报告问题
+5. 🚫 不得继续执行其他操作
 
-### 注意事项
+### 测试通过标志
 
-1. **VPS 存储空间：** 下载大文件前检查 VPS 磁盘空间
-   ```bash
-   df -h
-   ```
-
-2. **传输后清理：** 传输完成后删除 VPS 上的临时文件
-   ```bash
-   ssh root@76.13.219.143 "rm -f /root/temp-file.tar.gz"
-   ```
-
-3. **压缩优化：** 大文件传输前先压缩以减少传输时间
-   ```bash
-   tar -czf archive.tar.gz /path/to/files
-   ```
-
-4. **断点续传：** 大文件使用 rsync 而不是 scp
-   ```bash
-   rsync -avz --progress --partial root@76.13.219.143:/root/largefile.tar.gz ~/
-   ```
+**所有测试通过后**：
+- ✅ 在日志中记录测试通过
+- ✅ 继续执行后续操作
+- ✅ 更新相关文档
 
 ---
 
-## 🌐 访问国外网站策略
+## 📋 第二规则：操作前备份
 
-**规则：国外网站直接在 Hostinger VPS 上访问，不使用本地代理。**
+**核心理念**：重要操作前，必须创建备份，以便出错时可以快速恢复。
 
-**状态：** ✅ SOCKS5 代理已停用（2026-03-02 22:44）
+### 需要备份的操作
 
-### 使用场景
+- 🔄 修改系统配置文件（`/etc/*`, `~/.config/*`）
+- 🔄 修改 OpenClaw 配置（`~/.openclaw/*`）
+- 🔄 修改 Git 配置
+- 🔄 删除重要文件或目录
+- 🔄 重装软件
 
-1. **浏览国外网站** - 直接 SSH 到 VPS 使用 lynx/w3m
-2. **下载大型文件** - VPS 上 wget/curl 下载后 scp 到本地
-3. **克隆 Git 仓库** - VPS 上 git clone 后传输到本地
-4. **下载 Docker 镜像** - VPS 上 docker pull 后传输到本地
-5. **下载机器学习模型** - VPS 上下载后传输到本地
+### 备份方法
 
-### 使用场景
-
-1. **浏览国外网站** - 直接 SSH 到 VPS 使用 lynx/w3m
-2. **下载大型文件** - VPS 上 wget/curl 下载后 scp 到本地
-3. **克隆 Git 仓库** - VPS 上 git clone 后传输到本地
-4. **下载 Docker 镜像** - VPS 上 docker pull 后传输到本地
-5. **下载机器学习模型** - VPS 上下载后传输到本地
-
-### 操作流程
-
-**快速访问：**
 ```bash
-# SSH 到 VPS
-ssh root@76.13.219.143
+# 方法1：Git提交（推荐）
+git add .
+git commit -m "备份：$(date +%Y-%m-%d_%H-%M-%S)"
 
-# 使用 lynx 浏览（文本浏览器）
-lynx https://www.google.com
+# 方法2：文件复制
+cp file file.backup.$(date +%Y%m%d)
 
-# 或使用 w3m
-w3m https://www.github.com
+# 方法3：完整备份
+tar -czf backup-$(date +%Y%m%d-%H%M%S).tar.gz /path/to/important
 ```
-
-**下载文件：**
-```bash
-# VPS 上下载
-ssh root@76.13.219.143 "wget https://example.com/file.zip"
-
-# 传输到本地
-scp root@76.13.219.143:~/file.zip ~/
-```
-
-### 优势
-
-| 优势 | 说明 |
-|------|------|
-| 速度快 | VPS 直接访问，无中转延迟 |
-| 稳定 | VPS 网络稳定 |
-| 简单 | 无需本地代理配置 |
-| 批量 | 可以批量下载多个文件 |
 
 ---
 
-## 🚨 金科玉律：永不断开连接
+## 🎯 第三规则：全局优先级
 
-**规则：不管做什么设置，一定要确保能再次打开。每次改变后，都要 ping 下自己，确保下次能打开。**
+**规则优先级**：
+1. 🔴 **第一优先级**：永不断开连接（本文件）
+2. 🔴 **第一优先级**：操作前备份（本文件）
+3. 🟡 **第二优先级**：GitHub备份全局配置
+4. 🟢 **第三优先级**：代理规则
+5. 🔵 **第四优先级**：其他配置规则
 
-### 适用场景
-
-这条规则适用于所有可能影响系统访问、服务运行、网络配置的操作：
-
-1. **服务配置更改**（OpenClaw、Nginx、Apache 等）
-2. **防火墙规则修改**（ufw、iptables）
-3. **系统更新和升级**（apt upgrade、dist-upgrade）
-4. **网络配置更改**（IP、端口、DNS）
-5. **权限调整**（用户、文件权限）
-6. **配置文件修改**（任何可能影响服务启动的配置）
-7. **服务重启/停止操作**
-
-### 自检清单
-
-每次操作后，必须执行以下验证：
-
-- [ ] 服务是否正常运行（systemctl status）
-- [ ] 端口是否正常监听（netstat -tlnp）
-- [ ] 能否正常访问（curl 本地/远程访问）
-- [ ] 日志是否正常（journalctl / 服务日志）
-- [ ] 配置是否已保存并持久化
-
-### 🚨 如果发现问题 - 必须回滚
-
-**规则：如果有问题，一定要回滚到设置前。**
-
-1. **立即回滚更改** — 这是第一优先级
-2. 检查错误日志，找出问题根源
-3. 修复后再次验证
-4. 确认恢复到稳定状态
-
-### 回滚策略
-
-- **配置文件：** 操作前先备份（.bak）
-- **服务配置：** 使用版本控制或备份目录
-- **系统级更改：** 记录所有修改，便于回滚
-- **如果不确定能否成功，先在测试环境验证**
-
-**不要"硬着头皮修复"，立即回滚是最安全的选择。**
+**冲突处理**：
+- 当第一优先级规则与其他规则冲突时，**必须遵守第一优先级**
+- 例如：即使全局规则要求更新配置，如果可能导致断开连接，必须停止
 
 ---
 
-记住：**生存第一，功能第二**。宁可少做一个功能，也不能让自己"死"掉。
+## 📝 测试记录模板
+
+每次执行连接测试时，使用以下模板记录：
+
+```markdown
+## 连接测试记录 - YYYY-MM-DD HH:MM:SS
+
+### 执行的操作
+- [操作描述]
+
+### 测试结果
+
+#### 1. OpenClaw 服务
+- [x] 服务状态：active (running)
+- [x] 进程运行：正常
+- [x] 端口监听：正常
+
+#### 2. 网络连接
+- [x] 本地网络：100%
+- [x] 互联网：延迟 20ms
+- [x] GitHub：HTTP 200
+- [x] SSH：成功认证
+
+#### 3. Git 仓库
+- [x] VPS备份：正常
+- [x] 本地仓库：正常
+
+#### 4. 文件系统
+- [x] 磁盘空间：45%
+- [x] 配置文件：存在
+- [x] 读写功能：正常
+
+### 结论
+✅ 所有测试通过，系统状态正常
+```
+
+---
+
+## ⚠️ 紧急恢复程序
+
+### 如果 OpenClaw 无法启动
+
+**步骤1：检查服务**
+```bash
+systemctl status openclaw-gateway
+journalctl -u openclaw-gateway -n 50
+```
+
+**步骤2：检查配置**
+```bash
+~/.openclaw/openclaw.json
+```
+
+**步骤3：重启服务**
+```bash
+systemctl restart openclaw-gateway
+```
+
+**步骤4：从备份恢复**
+```bash
+cd /home/admin/openclaw/workspace
+git log --oneline -10
+git reset --hard <commit-id>
+```
+
+### 如果网络无法连接
+
+**步骤1：检查网络配置**
+```bash
+ping -c 3 8.8.8.8
+ip addr
+ip route
+```
+
+**步骤2：检查代理设置**
+```bash
+env | grep -i proxy
+```
+
+**步骤3：恢复直连**
+```bash
+unset http_proxy
+unset https_proxy
+unset HTTP_PROXY
+unset HTTPS_PROXY
+```
+
+---
+
+## 📌 关键文件位置
+
+| 文件 | 用途 |
+|-----|------|
+| `RULES.md` | 本文件（最高优先级规则） |
+| `SOUL.md` | 个性与行为准则 |
+| `TOOLS.md` | 配置与工具信息 |
+| `GitHub备份全局配置.md` | 备份系统规则 |
+
+---
+
+## ✅ 检查清单
+
+**每次执行重要操作前，确认**：
+- [ ] 已阅读 RULES.md
+- [ ] 已理解操作风险
+- [ ] 已创建备份
+- [ ] 已准备测试方案
+
+**每次执行重要操作后，确认**：
+- [ ] 已执行连接测试
+- [ ] 所有测试通过
+- [ ] 已记录测试结果
+- [ ] 已更新相关文档
+
+---
+
+**违反本规则的后果**：
+- ❌ 可能导致系统无法启动
+- ❌ 可能导致数据丢失
+- ❌ 可能导致无法恢复
+- ❌ 严重时需要完全重装系统
+
+**遵守本规则的好处**：
+- ✅ 系统稳定性提高
+- ✅ 问题可快速恢复
+- ✅ 用户体验更好
+- ✅ 避免重大损失
+
+---
+
+**牢记：第一规则是铁律，永不违反！** 🚨

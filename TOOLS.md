@@ -1,5 +1,28 @@
 # TOOLS.md - Local Notes
 
+## 🚨 最高优先级规则
+
+**重要**：所有操作必须遵守 `RULES.md` 中的规则：
+- **第一规则：永不断开连接** - 每次更改后都要测试连接
+- **第二规则：操作前备份** - 重要操作前必须创建备份
+
+**测试连接**：
+```bash
+# OpenClaw 服务
+systemctl status openclaw-gateway
+
+# 网络连接
+ping -c 3 8.8.8.8
+curl -I https://github.com
+
+# Git 仓库
+cd /home/admin/openclaw/workspace && git status
+```
+
+详见：`RULES.md` - 这是绝对不能违反的铁律
+
+---
+
 ## 备份信息
 
 - **工作空间备份：** `/home/admin/backups/workspace-backup-20260302-132648.tar.gz` (49K)
