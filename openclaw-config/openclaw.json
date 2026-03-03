@@ -1,0 +1,191 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.1",
+    "lastTouchedAt": "2026-02-04T05:52:16.246Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-04T05:52:16.239Z",
+    "lastRunVersion": "2026.2.1",
+    "lastRunCommand": "onboard",
+    "lastRunMode": "local"
+  },
+  "browser": {
+    "enabled": true,
+    "defaultProfile": "openclaw"
+  },
+  "models": {
+    "providers": {
+      "bailian": {
+        "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+        "apiKey": "",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "qwen3-max-2026-01-23",
+            "name": "Qwen3 Max Thinking",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          }
+        ]
+      },
+      "generic": {
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "glm-4.7",
+            "name": "glm-4.7",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 4096
+          }
+        ],
+        "apiKey": "a79705d7d5e34a159ed01cd558412017.DqWZWQr3ZosNIn7c",
+        "baseUrl": "https://open.bigmodel.cn/api/paas/v4/"
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "workspace": "/home/admin/openclaw/workspace",
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      },
+      "model": {
+        "primary": "generic/glm-4.7"
+      },
+      "models": {
+        "generic/glm-4.7": {}
+      }
+    }
+  },
+  "tools": {
+    "profile": "full",
+    "web": {
+      "search": {
+        "enabled": false
+      },
+      "fetch": {
+        "enabled": true
+      }
+    }
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "session-memory": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "channels": {
+    "dingtalk-connector": {
+      "enabled": true,
+      "clientId": "dingyscopnptfxm4hg8q",
+      "clientSecret": "Nrh8Y7DlzCTXbkxnZEucht4sipI3iy8-LHKykYHvwjf4zM4H9zFDjRI0FKY1IVQd",
+      "gatewayToken": "20e110256c06ea9aff13f90b6143874c2c7fb90bc5fc5207"
+    },
+    "qqbot": {
+      "enabled": false,
+      "appId": "",
+      "clientSecret": ""
+    },
+    "feishu": {
+      "enabled": false,
+      "appId": "",
+      "appSecret": ""
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "20e110256c06ea9aff13f90b6143874c2c7fb90bc5fc5207"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "http": {
+      "endpoints": {
+        "chatCompletions": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "skills": {
+    "install": {
+      "nodeManager": "npm"
+    }
+  },
+  "plugins": {
+    "entries": {
+      "dingtalk-connector": {
+        "enabled": true
+      },
+      "qqbot": {
+        "enabled": true
+      },
+      "feishu": {
+        "enabled": true
+      }
+    },
+    "installs": {
+      "dingtalk-connector": {
+        "source": "npm",
+        "spec": "https://github.com/DingTalk-Real-AI/dingtalk-moltbot-connector.git",
+        "installPath": "/home/admin/.openclaw/extensions/dingtalk-connector",
+        "version": "0.6.0",
+        "installedAt": "2026-02-02T09:57:51.489Z"
+      },
+      "qqbot": {
+        "source": "npm",
+        "spec": "https://github.com/sliverp/qqbot.git",
+        "installPath": "/home/admin/.openclaw/extensions/qqbot",
+        "version": "1.2.3",
+        "installedAt": "2026-02-02T10:00:18.955Z"
+      },
+      "feishu": {
+        "source": "npm",
+        "spec": "@m1heng-clawd/feishu",
+        "installPath": "/home/admin/.openclaw/extensions/feishu",
+        "version": "0.1.6",
+        "installedAt": "2026-02-02T10:01:04.126Z"
+      }
+    }
+  }
+}
