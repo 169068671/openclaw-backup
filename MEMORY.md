@@ -439,8 +439,10 @@ musicdl -u "歌曲URL"
 - **最后更新**: 2026-03-05
 
 **钉钉机器人**
-- **Client ID**: dingxwnetzxyggdo6jz3
-- **Client Secret**: 已配置
+- **Agent ID**: 4312319425
+- **Client ID**: dingcvagqvwxfx5w6kbf
+- **Client Secret**: GyCFe_GpNjZWR4cp5NmkRVyaisPkEBvm8anVU9lLFfVZ4yqM_l3i5buKjWnWnbGA
+- **机器人名称**: HostingerVPS-CoPaw
 - **Bot Prefix**: [BOT]
 - **连接状态**: ✅ 已连接
 
@@ -584,7 +586,20 @@ tail -f /tmp/copaw_local.log
 - **用户 ID**: 193200103629107416
 - **身份**: 睿墨眼镜企业成员
 
-### 应用 1: Hostinger-VPS-CoPaw
+### 应用 1: HostingerVPS-CoPaw（当前使用）
+
+| 配置项 | 值 |
+|-------|-----|
+| **Agent ID** | 4312319425 |
+| **App ID** | 3c1268c1-c584-4c10-bc0a-2b382af2aa51 |
+| **应用名称** | HostingerVPS-CoPaw |
+| **机器人名称** | HostingerVPS-CoPaw |
+| **Client ID** | dingcvagqvwxfx5w6kbf |
+| **Client Secret** | GyCFe_GpNjZWR4cp5NmkRVyaisPkEBvm8anVU9lLFfVZ4yqM_l3i5buKjWnWnbGA |
+| **用途** | VPS CoPaw 钉钉集成 |
+| **部署位置** | Hostinger VPS (76.13.219.143:8088) |
+
+### 应用 4: Hostinger-VPS-CoPaw（已废弃）
 
 | 配置项 | 值 |
 |-------|-----|
@@ -593,8 +608,7 @@ tail -f /tmp/copaw_local.log
 | **机器人名称** | Hostinger VPS CoPaw |
 | **Client ID** | dingxwnetzxyggdo6jz3 |
 | **Client Secret** | V0qovsgjxvUlXjVPmPfQYKRRQ9MoJnhJyfpEqiqZFM0j2NiwH93qBusv4iyT0s_P |
-| **用途** | VPS CoPaw 钉钉集成 |
-| **部署位置** | Hostinger VPS (76.13.219.143:8088) |
+| **状态** | 已废弃，已替换为 HostingerVPS-CoPaw |
 
 ### 应用 2: 王华军 openclaw
 
@@ -646,7 +660,7 @@ tail -f /tmp/copaw_local.log
 
 **示例（应用 1）**:
 ```
-https://oapi.dingtalk.com/gettoken?appkey=dingxwnetzxyggdo6jz3&appsecret=V0qovsgjxvUlXjVPmPfQYKRRQ9MoJnhJyfpEqiqZFM0j2NiwH93qBusv4iyT0s_P
+https://oapi.dingtalk.com/gettoken?appkey=dingcvagqvwxfx5w6kbf&appsecret=GyCFe_GpNjZWR4cp5NmkRVyaisPkEBvm8anVU9lLFfVZ4yqM_l3i5buKjWnWnbGA
 ```
 
 **有效期**: 7200 秒（2 小时）
