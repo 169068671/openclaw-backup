@@ -567,6 +567,116 @@ tail -f /tmp/copaw_local.log
 
 ---
 
+## 📨 钉钉企业及应用配置信息
+
+**整理时间**: 2026-03-05
+**整理人**: CoPaw
+
+### 企业信息
+- **企业名称**: 睿墨眼镜
+- **Corp ID**: ding4ef6bd48ee3dd8e4a1320dcb25e91351
+- **企业 API Token**: e651c00ecdf03464825c2a008524d797
+
+### 用户信息
+- **姓名**: 王华军
+- **钉钉手机号**: 13851300141
+- **钉钉号**: iu7mu8u
+- **用户 ID**: 193200103629107416
+- **身份**: 睿墨眼镜企业成员
+
+### 应用 1: Hostinger-VPS-CoPaw
+
+| 配置项 | 值 |
+|-------|-----|
+| **Agent ID** | 4305903062 |
+| **App ID** | 550bcec1-c7c4-4369-bef4-bea9a13261ca |
+| **机器人名称** | Hostinger VPS CoPaw |
+| **Client ID** | dingxwnetzxyggdo6jz3 |
+| **Client Secret** | V0qovsgjxvUlXjVPmPfQYKRRQ9MoJnhJyfpEqiqZFM0j2NiwH93qBusv4iyT0s_P |
+| **用途** | VPS CoPaw 钉钉集成 |
+| **部署位置** | Hostinger VPS (76.13.219.143:8088) |
+
+### 应用 2: 王华军 openclaw
+
+| 配置项 | 值 |
+|-------|-----|
+| **Agent ID** | 4291443459 |
+| **App ID** | 5da43db1-8d60-4a73-8e09-3729d8e3f36a |
+| **机器人名称** | 王华军 openclaw |
+| **Client ID** | dingyscopnptfxm4hg8q |
+| **Client Secret** | Nrh8Y7DlzCTXbkxnZEucht4sipI3iy8-LHKykYHvwjf4zM4H9zFDjRI0FKY1IVQd |
+| **用途** | 本地 openclaw 钉钉集成 |
+| **部署位置** | 本地电脑 |
+
+### 应用 3: 本地的 CoPaw 的机器人
+
+| 配置项 | 值 |
+|-------|-----|
+| **Agent ID** | 4291316103 |
+| **App ID** | 17e303c3-954a-4e86-b095-8088f2492d30 |
+| **机器人名称** | 本地的 CoPaw 的机器人 |
+| **Client ID** | ding4zn6bwph8ugrgei1 |
+| **Client Secret** | GAtSSvW1UzLsO4PED0q5UWdR5YVLHXsn-h3e30tmwJlcz4CCsjTGZlpawxsZjQek |
+| **用途** | 本地 CoPaw 钉钉集成 |
+| **部署位置** | 本地电脑 (http://127.0.0.1:8089) |
+
+### 钉钉 API 消息格式
+
+企业内部应用发送消息 API 格式：
+
+```json
+{
+  "agent_id": 4305903062,
+  "userid_list": "193200103629107416",
+  "msgtype": "text",
+  "msg": {
+    "msgtype": "text",
+    "text": {
+      "content": "消息内容"
+    }
+  }
+}
+```
+
+**⚠️ 关键点**: 必须包含 `msg` 字段，内部嵌套 `msgtype` 和 `text`
+
+### Access Token 获取方式
+
+**URL**: https://oapi.dingtalk.com/gettoken?appkey=CLIENT_ID&appsecret=CLIENT_SECRET
+
+**示例（应用 1）**:
+```
+https://oapi.dingtalk.com/gettoken?appkey=dingxwnetzxyggdo6jz3&appsecret=V0qovsgjxvUlXjVPmPfQYKRRQ9MoJnhJyfpEqiqZFM0j2NiwH93qBusv4iyT0s_P
+```
+
+**有效期**: 7200 秒（2 小时）
+
+### 消息发送 API
+
+- **URL**: https://oapi.dingtalk.com/topapi/message/corpconversation/asyncsend_v2
+- **方法**: POST
+- **Content-Type**: application/json
+
+### 重要说明
+
+1. 企业内部应用发送的消息显示为"工作通知：[应用名称]"
+2. 应用名称由钉钉开发者后台控制
+3. 修改应用名称后需创建新版本并发布才生效
+4. 客户端可能需要几分钟同步或重启钉钉
+
+### 钉钉开发者后台
+
+**网址**: https://open-dev.dingtalk.com/
+
+**操作流程**:
+1. 登录钉钉开发者后台
+2. 进入对应应用
+3. 修改应用名称/配置
+4. 应用发布 → 版本管理与发布
+5. 创建新版本 → 发布
+
+---
+
 ## 📝 待办事项
 
 - [ ] VPS 带宽升级（当前速度慢）
@@ -578,4 +688,4 @@ tail -f /tmp/copaw_local.log
 ---
 
 **记录维护人**: openclaw ⚡
-**最后更新**: 2026-03-05 16:13 (GMT+8)
+**最后更新**: 2026-03-05 18:42 (GMT+8)
