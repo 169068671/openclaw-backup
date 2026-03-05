@@ -426,14 +426,156 @@ musicdl -u "歌曲URL"
 
 ---
 
+## 🐾 CoPaw AI 助手
+
+### VPS 上的 CoPaw (Hostinger VPS)
+
+**基本信息**
+- **部署方式**: 非容器部署（systemd 服务）
+- **服务名称**: copaw.service
+- **Web UI**: http://76.13.219.143:8088
+- **配置目录**: /root/.copaw/
+- **数据目录**: /root/.copaw/copaw_data
+- **最后更新**: 2026-03-05
+
+**钉钉机器人**
+- **Client ID**: dingxwnetzxyggdo6jz3
+- **Client Secret**: 已配置
+- **Bot Prefix**: [BOT]
+- **连接状态**: ✅ 已连接
+
+**LLM 配置**
+- **Provider**: aliyun-codingplan
+- **API Key**: sk-sp-b8cc74984e064982850e9cd85ed89477
+- **Base URL**: https://coding.dashscope.aliyuncs.com/v1
+- **模型**: qwen-plus
+
+**服务管理**
+```bash
+# 查看状态
+systemctl status copaw.service
+
+# 启动服务
+systemctl start copaw.service
+
+# 停止服务
+systemctl stop copaw.service
+
+# 重启服务
+systemctl restart copaw.service
+
+# 查看日志
+journalctl -u copaw.service -f
+```
+
+**配置文件位置**
+- `/etc/systemd/system/copaw.service` - systemd 服务配置
+- `/root/.copaw/config.json` - copaw 主配置
+- `/root/.copaw/providers.json` - LLM provider 配置
+
+**其他功能**
+- **Nacos SDK**: ✅ 已安装 (3.0.4)
+- **Vector Search**: ⚠️ 已禁用（API key 不支持 embedding）
+
+**Docker 容器（同一 VPS）**
+- whisper-faster: Whisper 语音转文字服务
+- guacamole-web: 远程桌面 Web 界面 (8081)
+- guacamole-mysql: Guacamole 数据库
+- guacamole-guacd: Guacamole Daemon
+
+---
+
+### 本地的 CoPaw
+
+**基本信息**
+- **部署方式**: 直接运行
+- **Web UI**: http://127.0.0.1:8089
+- **配置目录**: /home/admin/.copaw/
+- **最后更新**: 2026-03-05
+
+**钉钉机器人**
+- **Client ID**: ding4zn6bwph8ugrgei1
+- **Client Secret**: GAtSSvW1UzLsO4PED0q5UWdR5YVLHXsn-h3e30tmwJlcz4CCsjTGZlpawxsZjQek
+- **Bot Prefix**: [BOT]
+- **连接状态**: ✅ 已连接
+
+**LLM 配置**
+- **Provider**: aliyun-codingplan
+- **API Key**: sk-sp-b8cc74984e064982850e9cd85ed89477
+- **Base URL**: https://coding.dashscope.aliyuncs.com/v1
+- **模型**: qwen-plus
+
+**服务管理**
+```bash
+# 启动服务
+nohup copaw app --host 0.0.0.0 --port 8089 > /tmp/copaw_local.log 2>&1 &
+
+# 查看进程
+ps aux | grep 'copaw app' | grep -v grep
+
+# 停止服务
+pkill -f 'copaw app'
+
+# 查看日志
+tail -f /tmp/copaw_local.log
+```
+
+**配置文件位置**
+- `/home/admin/.local/lib/python3.10/site-packages/copaw/providers/providers.json` - LLM provider 配置
+- `/home/admin/.copaw/config.json` - copaw 主配置
+
+**其他功能**
+- **Vector Search**: ⚠️ 已禁用（API key 不支持 embedding）
+
+---
+
+### CoPaw 功能说明
+
+**已启用的功能**
+- ✅ 钉钉通道（双向通信）
+- ✅ Console 通道
+- ✅ AI Card 流式响应
+- ✅ 会话持久化（30分钟超时）
+- ✅ 图片自动上传
+- ✅ 会话命令: /new, /reset, /clear, 新会话, 重新开始, 清空对话
+
+**配置的会话命令**
+- `/new` - 创建新会话
+- `/reset` - 重置当前会话
+- `/clear` - 清空对话历史
+- `新会话` - 创建新会话（中文）
+- `重新开始` - 重置当前会话（中文）
+- `清空对话` - 清空对话历史（中文）
+
+**限制说明**
+- Vector Search 功能已禁用（因 API key 不支持 embedding 服务）
+- 主要聊天功能不受影响
+- 技能、文件处理等功能正常使用
+
+---
+
+### CoPaw vs OpenClaw
+
+| 特性 | CoPaw | OpenClaw |
+|-----|-------|----------|
+| **定位** | AI 助手框架 | AI 助手框架 |
+| **LLM** | 阿里云 qwen-plus | 智谱 GLM-4.7 |
+| **钉钉机器人** | 两个独立实例 | dingtalk-connector 插件 |
+| **Web UI** | 有独立 Console | 有独立 Web UI |
+| **部署** | VPS + 本地 | 本地 systemd |
+| **技能系统** | 技能驱动 | 技能驱动 |
+
+---
+
 ## 📝 待办事项
 
 - [ ] VPS 带宽升级（当前速度慢）
 - [ ] SSH 隧道自启动服务（systemd）
 - [ ] 考虑创建 NotebookLM 相关技能
 - [ ] 继续测试和优化下载工具
+- [ ] 获取支持 embedding 的 API key 以启用 CoPaw Vector Search
 
 ---
 
 **记录维护人**: openclaw ⚡
-**最后更新**: 2026-03-04 03:16 (GMT+8)
+**最后更新**: 2026-03-05 16:13 (GMT+8)
