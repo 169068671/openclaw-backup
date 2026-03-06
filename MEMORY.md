@@ -174,6 +174,16 @@ pip install --upgrade musicdl
 - **Git提交**: 0c2bf4e (2026-03-06)
 - **特点**: 免费开源、隐私安全、支持多平台交互、一键安装
 - **参考**: https://github.com/Panniantong/agent-reach
+- **安装状态**: ✅ 已安装基础组件（2026-03-06 20:59）
+  - ✅ agent-reach CLI
+  - ✅ xreach CLI (Twitter/X)
+  - ✅ mcporter (MCP 服务器)
+  - ✅ Exa 全网搜索（已配置）
+  - ✅ yt-dlp (YouTube/B站)
+  - ✅ feedparser (RSS)
+  - ✅ FFmpeg (视频处理)
+  - ⏳ GitHub CLI (gh) - 安装中
+  - 可用渠道：6/13
 
 ### 安装的技能（ClawHub）
 - feishu-doc (飞书文档)
