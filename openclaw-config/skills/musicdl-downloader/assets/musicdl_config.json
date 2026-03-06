@@ -1,0 +1,10 @@
+{
+  "platform": "netease",
+  "quality": "lossless",
+  "output_dir": "./downloads",
+  "download_lyrics": true,
+  "limit": 10,
+  "concurrent_downloads": 3,
+  "save_format": "mp3",
+  "auto_numbering": true
+}

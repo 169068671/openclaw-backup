@@ -16,8 +16,8 @@
   "models": {
     "providers": {
       "bailian": {
-        "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
-        "apiKey": "",
+        "baseUrl": " https://coding.dashscope.aliyuncs.com/v1",
+        "apiKey": "sk-sp-b8cc74984e064982850e9cd85ed89477",
         "api": "openai-completions",
         "models": [
           {

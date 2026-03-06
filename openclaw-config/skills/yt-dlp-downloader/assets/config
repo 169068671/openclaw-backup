@@ -1,0 +1,90 @@
+# yt-dlp 配置文件模板
+# 复制此文件到 ~/.config/yt-dlp/config
+
+[OPTIONS]
+# 输出目录和文件名
+output = ./downloads/%(uploader)s/%(title)s.%(ext)s
+
+# 视频格式
+format = bestvideo+bestaudio
+
+# 提取音频
+extractaudio = false
+
+# 音频格式（当 extractaudio=true 时使用）
+audioformat = mp3
+
+# 音频质量（0-10，10为最佳）
+audioquality = 10
+
+# 字幕
+writesubs = false
+subtitleslangs = en,zh-CN
+writesubtitles = true
+writeautomaticsub = false
+
+# 缩略图
+writethumbnail = false
+
+# 描述
+writedescription = false
+
+# 元数据
+writeinfojson = false
+
+# 播放列表选项
+playliststart = 1
+playlistend = null
+playlistreverse = false
+playlistrandom = false
+
+# 下载选项
+nooverwrites = true
+continue = true
+nopart = false
+nocheckcertificate = false
+
+# 外部下载器
+external_downloader = aria2c
+external_downloader_args = -c -x 8 -s 8 -k 1M
+
+# 并发片段数
+concurrent_fragment_downloads = 3
+
+# 速度限制（0=无限制）
+ratelimit = 0
+
+# 重试次数
+retries = 10
+
+# 缓冲大小
+buffersize = 1024
+
+# 用户代理
+# proxy = socks5://127.0.0.1:1080
+
+# Cookie 文件
+# cookies = ./cookies.txt
+
+# 用户代理
+# useragent = Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36
+
+# 参考视频（嵌入缩略图）
+embedthumbnail = false
+
+# 参考字幕（嵌入字幕）
+embedsubs = false
+
+# 下载存档（记录已下载的视频）
+download_archive = ./downloaded.txt
+
+# FFmpeg 位置
+ffmpeglocation = /usr/bin/ffmpeg
+
+# 后处理器
+postprocessors =
+
+# 详细输出
+verbose = false
+quiet = false
+no_warnings = false

@@ -1,0 +1,34 @@
+# Yutto 配置文件模板
+# 复制此文件到 ~/.config/yutto/yutto.toml 或 ~/.yutto.toml
+
+[bilibili]
+# Bilibili SESSDATA（用于大会员内容）
+# 获取方式：登录 Bilibili → F12 → Application → Cookies → SESSDATA
+sessdata = ""
+
+# 下载目录（相对或绝对路径）
+download_dir = "./downloads"
+
+# 视频质量：auto, 1080, 720, 480, 360
+quality = "auto"
+
+# 视频编码：auto, hevc, avc, av1
+codec = "auto"
+
+# 是否下载弹幕（ASS 格式）
+with_danmaku = false
+
+# 是否仅下载音频
+download_only_audio = false
+
+# 是否覆盖已存在的文件
+overwrite = false
+
+# 下载超时时间（秒）
+timeout = 300
+
+# 并发下载数
+workers = 3
+
+# 是否在下载时显示详细信息
+verbose = false

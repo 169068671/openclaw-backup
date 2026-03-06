@@ -1,0 +1,24 @@
+# Agent Reach Configuration Template
+# Copy this to ~/.agent-reach/config.yaml and fill in the required values
+
+# Twitter/X Cookies (optional)
+twitter_cookies: ""
+
+# Proxy configuration (optional, for Reddit/Bilibili from server)
+proxy_url: ""
+
+# GitHub Authentication (optional, for private repos)
+# Use 'gh auth login' to set this up
+
+# XiaoHongShu Cookies (optional)
+xiaohongshu_cookies: ""
+
+# WeChat Cookies (optional)
+wechat_cookies: ""
+
+# LinkedIn Credentials (optional)
+linkedin_username: ""
+linkedin_password: ""
+
+# Boss直聘 Credentials (optional)
+bosszhipin_cookies: ""
