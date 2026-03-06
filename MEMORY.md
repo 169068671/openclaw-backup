@@ -167,6 +167,14 @@ pip install --upgrade musicdl
 - **Git提交**: 087fba9, 399ecee, dcc9a38
 - **特点**: 专为B站设计，稳定可靠
 
+### agent-reach（网络资源搜索）
+- **位置**: ~/.openclaw/skills/agent-reach/
+- **功能**: 全站网络资源搜索，支持 13+ 平台
+- **支持平台**: Twitter/X, Reddit, YouTube, GitHub, Bilibili, 小红书, 抖音, 微信公众号, LinkedIn, Boss直聘, RSS, Exa 搜索, 网页阅读
+- **Git提交**: 0c2bf4e (2026-03-06)
+- **特点**: 免费开源、隐私安全、支持多平台交互、一键安装
+- **参考**: https://github.com/Panniantong/agent-reach
+
 ### 安装的技能（ClawHub）
 - feishu-doc (飞书文档)
 - feishu-drive (飞书云盘)
@@ -403,6 +411,7 @@ musicdl -u "歌曲URL"
 - **2026-03-02**: 工作空间初始化，HTTP代理配置，钉钉通道配置
 - **2026-03-03**: OpenClaw升级（2026.2.1→2026.3.2），yutto-downloader技能创建，SSH隧道配置
 - **2026-03-04**: MEMORY.md 创建
+- **2026-03-06**: agent-reach 技能创建（网络资源搜索，支持 13+ 平台）
 
 ---
 
@@ -702,4 +711,4 @@ https://oapi.dingtalk.com/gettoken?appkey=dingcvagqvwxfx5w6kbf&appsecret=GyCFe_G
 ---
 
 **记录维护人**: openclaw ⚡
-**最后更新**: 2026-03-05 19:07 (GMT+8)
+**最后更新**: 2026-03-06 19:08 (GMT+8)
