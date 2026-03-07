@@ -200,6 +200,35 @@ pip install --upgrade musicdl
   - ✅ GitHub CLI (gh) v2.87.3 - ✅ 已认证（账号：169068671）
   - 可用渠道：6/13
 
+### agent-browser（Vercel 无头浏览器自动化）
+- **位置**: ~/.openclaw/skills/agent-browser/
+- **功能**: 无头浏览器自动化 CLI，专为 AI agents 设计
+- **版本**: 0.16.3
+- **安装位置**: /home/admin/.npm-global/bin/agent-browser
+- **Git提交**: ffda064 (2026-03-07)
+- **特点**: Rust 原生 CLI（极快）、AI 友好的 ref 选择器、完整 API
+- **参考**: https://github.com/vercel-labs/agent-browser
+- **安装状态**: ✅ 已安装并测试（2026-03-07 11:19）
+  - ✅ agent-browser CLI (v0.16.3)
+  - ✅ Chromium 浏览器
+  - ✅ 基本功能测试通过（打开网页、快照、点击、关闭）
+- **常用命令**:
+  ```bash
+  # 打开网页
+  agent-browser open https://example.com
+
+  # 获取快照（AI 最佳）
+  agent-browser snapshot
+
+  # 使用 ref 操作
+  agent-browser click @e2
+  agent-browser fill @e3 "text"
+  agent-browser screenshot page.png
+
+  # 关闭浏览器
+  agent-browser close
+  ```
+
 ### 安装的技能（ClawHub）
 - feishu-doc (飞书文档)
 - feishu-drive (飞书云盘)
@@ -737,4 +766,4 @@ https://oapi.dingtalk.com/gettoken?appkey=dingcvagqvwxfx5w6kbf&appsecret=GyCFe_G
 ---
 
 **记录维护人**: openclaw ⚡
-**最后更新**: 2026-03-07 09:41 (GMT+8)
+**最后更新**: 2026-03-07 11:20 (GMT+8)
