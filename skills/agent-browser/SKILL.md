@@ -20,6 +20,99 @@ npm install -g agent-browser
 agent-browser install
 ```
 
+---
+
+## 🍪 Cookies 导入（批量导入脚本）
+
+### Cookies 导入脚本
+
+**位置**：`~/.local/bin/agent-browser-cookies-import.py`
+
+**功能**：
+- 从 Netscape 格式的 cookies 文件批量导入到 agent-browser
+- 自动处理 `#HttpOnly_` 前缀
+- 支持复杂 cookies 格式
+
+### 使用方法
+
+```bash
+# 基本用法
+agent-browser-cookies-import.py <cookies-file> <target-url>
+
+# 示例
+agent-browser-cookies-import.py ~/.config/google-cookies.txt https://www.google.com
+```
+
+### Cookies 文件格式（Netscape）
+
+```
+# Netscape HTTP Cookie File
+# http://curl.haxx.se/rfc/cookie_spec.html
+# This is a generated file!  Do not edit.
+
+.google.com	TRUE	/	FALSE	1807160049	APISID	value
+.google.com	TRUE	/	TRUE	1807160049	SID	value
+#HttpOnly_.google.com	TRUE	/	FALSE	1807160049	HSID	value
+```
+
+### 导出 Cookies（使用 browser-cookies-exporter）
+
+```bash
+# 导出 Google cookies
+browser-cookies-exporter google.com ~/.config/google-cookies.txt
+
+# 导出 YouTube cookies
+browser-cookies-exporter youtube.com ~/.config/youtube-cookies.txt
+```
+
+### 使用流程
+
+```bash
+# 1. 打开浏览器（目标 URL）
+agent-browser open https://www.google.com
+
+# 2. 导入 cookies
+agent-browser-cookies-import.py ~/.config/google-cookies.txt https://www.google.com
+
+# 3. 获取快照
+agent-browser snapshot
+
+# 4. 执行操作
+agent-browser find role combobox fill --name "Search" "test query"
+agent-browser find role button click --name "Google Search"
+
+# 5. 关闭浏览器
+agent-browser close
+```
+
+### 测试结果
+
+| 项目 | 结果 |
+|------|------|
+| **Google Cookies 导入** | ✅ 41/41 成功 |
+| **关键 cookies** | ✅ HSID, SSID, SID 等 |
+| **Google 登录 UI** | ⚠️ 受限（安全检测）|
+| **其他服务** | ✅ 正常工作 |
+
+### 注意事项
+
+⚠️ **Google 登录限制**：
+- 即使导入完整 cookies，Google 仍然拒绝自动化浏览器登录
+- 原因：Google 检测到无头浏览器（agent-browser）
+- 解决方案：使用 cookies 文件配合其他工具（yt-dlp, curl）
+
+✅ **适用场景**：
+- API 认证
+- 爬取数据
+- 自动化测试
+- 非严格验证的服务
+
+❌ **不适用场景**：
+- Google 登录（UI）
+- 严格检测自动化的服务
+
+---
+
 ## 基本使用
 
 ### 打开网页并获取快照
