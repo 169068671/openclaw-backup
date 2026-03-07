@@ -839,6 +839,64 @@ https://oapi.dingtalk.com/gettoken?appkey=dingcvagqvwxfx5w6kbf&appsecret=GyCFe_G
 
 ---
 
+## 🔧 NotebookLM 认证导出技能
+
+### notebooklm-auth-exporter
+
+**创建日期**: 2026-03-08
+**位置**: `~/.openclaw/skills/notebooklm-auth-exporter/`
+**打包文件**: `/home/admin/openclaw/workspace/notebooklm-auth-exporter.skill`
+
+**功能**: 从 Chrome 浏览器导出 NotebookLM 认证状态，用于无头服务器自动化
+
+**关键发现**:
+- ❌ 使用 Playwright 自动化浏览器登录 Google 会被检测并拒绝
+- ✅ 从真实 Chrome 浏览器导出 cookies 不被检测
+- ✅ 转换为 Playwright storage_state.json 格式后可在服务器使用
+
+**使用流程**:
+```bash
+# 1. 从 Chrome 导出 cookies
+browser-cookies-exporter .google.com /tmp/google-cookies.txt
+
+# 2. 转换为 Playwright 格式
+python3 ~/.openclaw/skills/notebooklm-auth-exporter/scripts/convert_cookies.py \
+  /tmp/google-cookies.txt \
+  /tmp/storage_state.json
+
+# 3. 部署到服务器
+chmod +x /home/admin/openclaw/workspace/deploy-notebooklm-auth.sh
+./deploy-notebooklm-auth.sh
+
+# 4. 在服务器 Playwright 脚本中使用
+# context = await browser.new_context(storage_state="/root/.notebooklm/storage_state.json")
+```
+
+**部署脚本**: `/home/admin/openclaw/workspace/deploy-notebooklm-auth.sh`
+- 自动复制 `storage_state.json` 到 VPS (76.13.219.143)
+- 验证文件是否成功传输
+- 自动测试认证是否有效
+- 使用 sshpass 自动化密码输入
+
+**测试结果**:
+- ✅ 本地测试：成功访问 NotebookLM (页面标题: NotebookLM)
+- ✅ VPS 测试：成功访问 NotebookLM (页面标题: NotebookLM)
+- ✅ Cookie 数量: 53 个
+- ✅ 文件大小: 18K
+
+**维护**:
+- Cookies 有效期：约 14 天
+- 需要定期重新导出和部署
+- 建议设置日历提醒每周更新一次
+
+**相关文件**:
+- `~/.openclaw/skills/notebooklm-auth-exporter/SKILL.md` - 完整使用指南
+- `~/.openclaw/skills/notebooklm-auth-exporter/scripts/convert_cookies.py` - 转换脚本
+- `/home/admin/openclaw/workspace/deploy-notebooklm-auth.sh` - 自动部署脚本
+- `/root/.notebooklm/storage_state.json` (VPS) - 当前使用的认证文件
+
+---
+
 ## 📝 待办事项
 
 - [ ] VPS 带宽升级（当前速度慢）
@@ -850,4 +908,4 @@ https://oapi.dingtalk.com/gettoken?appkey=dingcvagqvwxfx5w6kbf&appsecret=GyCFe_G
 ---
 
 **记录维护人**: openclaw ⚡
-**最后更新**: 2026-03-07 11:20 (GMT+8)
+**最后更新**: 2026-03-08 04:40 (GMT+8)
