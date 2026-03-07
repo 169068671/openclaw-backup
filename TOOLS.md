@@ -228,3 +228,58 @@ yt-dlp --proxy socks5://127.0.0.1:1080 \
 - `n challenge solving failed` → 需要 JS runtime 和 EJS 组件
 
 **详细说明**：见 agent-reach 技能 SKILL.md
+
+---
+
+### YouTube Cookies 导出（Netscape 格式）📁
+
+**Cookies 文件位置**：`/home/admin/Desktop/cookies-youtube.txt`
+- 格式：Netscape HTTP Cookie File
+- 大小：3.1K
+- 包含：21 个 cookies
+
+**使用导出的 cookies**：
+```bash
+yt-dlp --proxy socks5://127.0.0.1:1080 \
+  --cookies "/home/admin/Desktop/cookies-youtube.txt" \
+  --js-runtimes node \
+  --remote-components ejs:github \
+  -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" \
+  -o "/tmp/%(title)s.%(ext)s" \
+  "https://www.youtube.com/watch?v=XXX"
+```
+
+**导出 cookies 命令**：
+```bash
+# 安装 browser-cookie3
+pip3 install --user browser-cookie3
+
+# 导出 YouTube cookies（Netscape 格式）
+python3 -c "
+import browser_cookie3
+import http.cookiejar as cj
+
+cookies = browser_cookie3.chrome(domain_name='.youtube.com')
+cookie_jar = cj.MozillaCookieJar('/home/admin/Desktop/cookies-youtube.txt')
+for cookie in cookies:
+    cookie_jar.set_cookie(cookie)
+cookie_jar.save()
+"
+```
+
+**Cookie 有效期**：
+- Cookies 会随时间过期
+- 建议定期重新导出
+- 如果遇到认证错误，重新导出即可
+
+**两种使用方式对比**：
+
+| 方式 | 优点 | 缺点 |
+|-----|------|------|
+| `--cookies-from-browser chrome` | 自动获取最新 cookies | 需要浏览器运行 |
+| `--cookies "/path/to/file"` | 可重复使用，方便脚本调用 | cookies 可能过期 |
+
+**安全提醒**：
+- Cookies 包含敏感信息，请勿分享
+- 建议定期更换 YouTube 密码
+- 注意保护 cookies 文件安全
