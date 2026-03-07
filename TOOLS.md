@@ -100,6 +100,16 @@ ps aux | grep "ssh.*1080" | awk '{print $2}' | xargs kill
 - 协议：HTTPS
 - Token 作用域：完整权限（admin, repo, workflow, etc.）
 
+**GitHub Token**：
+```
+[REDACTED]
+```
+
+**⚠️ 安全提醒**：
+- Token 已记录到此文件，请勿公开分享
+- 如需重置，访问 GitHub Settings → Developer settings → Personal access tokens
+- 建议定期更换 token
+
 **使用场景**：
 - agent-reach GitHub 渠道（已解锁完整功能）
 - GitHub 仓库管理
