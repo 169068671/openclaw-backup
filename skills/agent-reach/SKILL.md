@@ -52,10 +52,92 @@ xreach thread URL_OR_ID --json               # full thread
 ## YouTube (yt-dlp)
 
 ```bash
-yt-dlp --dump-json "URL"                     # video metadata
+# 获取视频元数据
+yt-dlp --dump-json "URL"
+
+# 下载字幕
 yt-dlp --write-sub --write-auto-sub --sub-lang "zh-Hans,zh,en" --skip-download -o "/tmp/%(id)s" "URL"
-                                             # download subtitles, then read the .vtt file
-yt-dlp --dump-json "ytsearch5:query"         # search
+# 然后读取 .vtt 文件
+
+# 搜索视频
+yt-dlp --dump-json "ytsearch5:query"
+
+# 下载视频（完整推荐配置）⭐
+yt-dlp --proxy socks5://127.0.0.1:1080 \
+  --cookies-from-browser chrome \
+  --js-runtimes node \
+  --remote-components ejs:github \
+  -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" \
+  -o "/tmp/%(title)s.%(ext)s" \
+  "URL"
+```
+
+**🔧 必需参数说明**：
+
+| 参数 | 作用 | 原因 |
+|-----|------|------|
+| `--proxy socks5://127.0.0.1:1080` | SOCKS5 代理 | YouTube 国内被封锁，需要通过 SSH 隧道访问 |
+| `--cookies-from-browser chrome` | 使用浏览器 cookies | 绕过 YouTube 的机器人检测 |
+| `--js-runtimes node` | 使用 Node.js 解析 | 解决 YouTube 的 JS 挑战 |
+| `--remote-components ejs:github` | 使用 GitHub EJS 组件 | 解决 YouTube 的验证码挑战 |
+
+**📋 前置条件**：
+
+1. **启动 SSH 隧道**（使用 Hostinger VPS）：
+   ```bash
+   sshpass -p 'Whj001.Whj001' ssh -N -D 1080 -f root@76.13.219.143
+   ```
+
+2. **检查隧道状态**：
+   ```bash
+   netstat -tlnp | grep 1080
+   ```
+
+3. **验证 Node.js 可用**：
+   ```bash
+   which node nodejs
+   ```
+
+**🎬 格式选择**：
+
+```bash
+# 最佳质量 MP4（推荐）
+-f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"
+
+# 1080p 专用
+-f "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]"
+
+# 720p 专用（节省流量）
+-f "bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]"
+
+# 列出所有可用格式
+--list-formats
+```
+
+**🔥 常见问题**：
+
+- **Error: Network is unreachable** → 需要使用 `--proxy`
+- **Error: Sign in to confirm you're not a bot** → 需要 `--cookies-from-browser`
+- **Warning: n challenge solving failed** → 需要 `--js-runtimes` 和 `--remote-components`
+- **Warning: Only images are available** → 以上参数都缺失，无法获取视频流
+
+**📝 工作流示例**：
+
+```bash
+# 1. 启动 SSH 隧道（如果未启动）
+sshpass -p 'Whj001.Whj001' ssh -N -D 1080 -f root@76.13.219.143
+
+# 2. 下载 YouTube 视频
+yt-dlp --proxy socks5://127.0.0.1:1080 \
+  --cookies-from-browser chrome \
+  --js-runtimes node \
+  --remote-components ejs:github \
+  -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" \
+  -o "/tmp/%(title)s.%(ext)s" \
+  "https://www.youtube.com/watch?v=XXX"
+
+# 3. 查看下载的文件
+ls -lh /tmp/
 ```
 
 ## Bilibili (yt-dlp)
