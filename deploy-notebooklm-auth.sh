@@ -62,8 +62,10 @@ echo "Server file info:"
 echo "$FILE_INFO"
 echo ""
 
-# Test authentication
+# Test authentication (optional - comment out to skip)
 echo -e "${YELLOW}🧪 Testing authentication...${NC}"
+TEST_START=$(date +%s)
+
 TEST_RESULT=$(sshpass -p "$PASSWORD" ssh "$SERVER" "python3 -c \"
 import asyncio
 from playwright.async_api import async_playwright
@@ -73,7 +75,7 @@ async def test():
         browser = await p.chromium.launch(headless=True)
         context = await browser.new_context(storage_state='$REMOTE_PATH')
         page = await context.new_page()
-        await page.goto('https://notebooklm.google.com/', timeout=60000)
+        await page.goto('https://notebooklm.google.com/', timeout=30000)
         title = await page.title()
         await browser.close()
         print(title)
@@ -81,8 +83,11 @@ async def test():
 asyncio.run(test())
 \" 2>/dev/null")
 
+TEST_END=$(date +%s)
+TEST_TIME=$((TEST_END - TEST_START))
+
 if [ $? -eq 0 ] && [ "$TEST_RESULT" = "NotebookLM" ]; then
-    echo -e "${GREEN}✅ Authentication test PASSED!${NC}"
+    echo -e "${GREEN}✅ Authentication test PASSED! (took ${TEST_TIME}s)${NC}"
 else
     echo -e "${RED}❌ Authentication test FAILED${NC}"
     echo "Result: $TEST_RESULT"
@@ -91,4 +96,19 @@ fi
 echo ""
 echo "========================================"
 echo "  Deployment Complete"
+echo "========================================"
+echo ""
+echo -e "${GREEN}📍 New Storage State File:${NC}"
+echo "   Server:    $SERVER"
+echo "   Path:      $REMOTE_PATH"
+echo "   Name:      $(basename $REMOTE_PATH)"
+echo ""
+echo -e "${YELLOW}💡 Use this in your VPS Playwright scripts:${NC}"
+echo "   storage_state=\"$REMOTE_PATH\""
+echo ""
+echo -e "${YELLOW}💡 Example Python code:${NC}"
+echo "   context = await browser.new_context("
+echo "       storage_state=\"$REMOTE_PATH\""
+echo "   )"
+echo ""
 echo "========================================"
