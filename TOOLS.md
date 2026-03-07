@@ -68,11 +68,21 @@ cd /home/admin/openclaw/workspace && git status
 
 **备用方案：SSH 隧道（SOCKS5）**
 
-仅在直连失败或访问其他被限制的国外网站时使用。
+仅在直连失败或访问其他被限制的国外网站时使用（包括 agent-reach 需要代理时）。
 
 **启动方法：**
 ```bash
 sshpass -p 'Whj001.Whj001' ssh -N -D 1080 -f root@76.13.219.143
+```
+
+**检查隧道状态：**
+```bash
+netstat -tlnp | grep 1080
+```
+
+**停止隧道：**
+```bash
+ps aux | grep "ssh.*1080" | awk '{print $2}' | xargs kill
 ```
 
 **浏览器配置：**
@@ -80,6 +90,26 @@ sshpass -p 'Whj001.Whj001' ssh -N -D 1080 -f root@76.13.219.143
 - SOCKS 主机：`127.0.0.1`，端口：`1080`
 
 **详细文档：** `SSH隧道代理方案.md`
+
+---
+
+## GitHub CLI (gh) 配置
+
+**认证状态**: ✅ 已认证（2026-03-07）
+- 账号：169068671
+- 协议：HTTPS
+- Token 作用域：完整权限（admin, repo, workflow, etc.）
+
+**使用场景**：
+- agent-reach GitHub 渠道（已解锁完整功能）
+- GitHub 仓库管理
+- Issue/PR 操作
+
+**认证方法**：
+```bash
+# 使用 token 认证
+echo "<token>" | gh auth login --with-token
+```
 
 ### 替代方案：Tinyproxy（HTTP）⚠️
 
