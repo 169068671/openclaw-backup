@@ -100,13 +100,9 @@ ps aux | grep "ssh.*1080" | awk '{print $2}' | xargs kill
 - 协议：HTTPS
 - Token 作用域：完整权限（admin, repo, workflow, etc.）
 
-**GitHub Token**：
-```
-[REDACTED]
-```
-
 **⚠️ 安全提醒**：
-- Token 已记录到此文件，请勿公开分享
+- Token 保存在 GitHub CLI 的加密配置中（~/.local/share/gh/hosts.yml）
+- 如需查看 token，运行：`gh auth status`
 - 如需重置，访问 GitHub Settings → Developer settings → Personal access tokens
 - 建议定期更换 token
 
