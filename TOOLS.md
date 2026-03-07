@@ -195,5 +195,36 @@ Allow 0.0.0.0/0
 ### 推荐使用
 
 - **Bilibili 下载**：yutto（专用，更稳定）
+- **YouTube 下载**：yt-dlp（agent-reach 技能，配置完整）⭐
 - **综合视频下载**：yt-dlp（支持1000+网站）
 - **音乐/有声读物**：musicdl（50+音乐平台）
+
+### YouTube 下载配置（agent-reach）⭐
+
+**完整下载命令**：
+```bash
+yt-dlp --proxy socks5://127.0.0.1:1080 \
+  --cookies-from-browser chrome \
+  --js-runtimes node \
+  --remote-components ejs:github \
+  -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" \
+  -o "/tmp/%(title)s.%(ext)s" \
+  "https://www.youtube.com/watch?v=XXX"
+```
+
+**必需参数说明**：
+- `--proxy socks5://127.0.0.1:1080`：SSH 隧道代理（必需）
+- `--cookies-from-browser chrome`：使用浏览器 cookies（必需）
+- `--js-runtimes node`：使用 Node.js 解析（必需）
+- `--remote-components ejs:github`：使用 GitHub EJS 组件（必需）
+
+**前置条件**：
+1. 启动 SSH 隧道：`sshpass -p 'Whj001.Whj001' ssh -N -D 1080 -f root@76.13.219.143`
+2. 检查隧道状态：`netstat -tlnp | grep 1080`
+
+**常见错误**：
+- `Network is unreachable` → 需要代理
+- `Sign in to confirm you're not a bot` → 需要 cookies
+- `n challenge solving failed` → 需要 JS runtime 和 EJS 组件
+
+**详细说明**：见 agent-reach 技能 SKILL.md
