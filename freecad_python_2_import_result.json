@@ -1,0 +1,201 @@
+{
+  "notebook_id": "b74e6979-85cc-4b23-b5ec-1953675c09ba",
+  "notebook_url": "https://notebooklm.google.com/notebook/b74e6979-85cc-4b23-b5ec-1953675c09ba",
+  "total_videos": 38,
+  "imported": 0,
+  "failed": 38,
+  "skipped": 0,
+  "failed_links": [
+    {
+      "index": 1,
+      "link": "https://www.youtube.com/watch?v=KujiAIHNRKQ",
+      "error": "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button:has-text('Add')\").first\n    - locator resolved to <button mat-flat-button=\"\" aria-label=\"创建笔记本\" _ngcontent-ng-c3678038627=\"\" mat-ripple-loader-uninitialized=\"\" jslog=\"275596;track:generic_click,impression\" mat-ripple-loader-class-name=\"mat-mdc-button-ripple\" class=\"mdc-button mat-mdc-button-base create-notebook-button mdc-button--unelevated mat-mdc-unelevated-button mat-unthemed ng-star-inserted\">…</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <div class=\"cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing\"></div> from <div class=\"cdk-overlay-container\">…</div> subtree intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <div class=\"cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing\"></div> from <div class=\"cdk-overlay-container\">…</div> subtree intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    54 × waiting for element to be visible, enabled and stable\n       - element is visible, enabled and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <div class=\"cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing\"></div> from <div class=\"cdk-overlay-container\">…</div> subtree intercepts pointer events\n     - retrying click action\n       - waiting 500ms\n"
+    },
+    {
+      "index": 2,
+      "link": "https://www.youtube.com/watch?v=2dhtUh-O0zI",
+      "error": "Locator.fill: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"input[type='url'], input[type='text']\").first\n"
+    },
+    {
+      "index": 3,
+      "link": "https://www.youtube.com/watch?v=9CfOJdIs0rA",
+      "error": "Locator.fill: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"input[type='url'], input[type='text']\").first\n"
+    },
+    {
+      "index": 4,
+      "link": "https://www.youtube.com/watch?v=jtl0XEPtsgA",
+      "error": "Locator.fill: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"input[type='url'], input[type='text']\").first\n"
+    },
+    {
+      "index": 5,
+      "link": "https://www.youtube.com/watch?v=H8K8c5HCBII",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 6,
+      "link": "https://www.youtube.com/watch?v=M_V6QYEa56c",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 7,
+      "link": "https://www.youtube.com/watch?v=v6ANLO5aDN4",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 8,
+      "link": "https://www.youtube.com/watch?v=wZwimBd2K08",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 9,
+      "link": "https://www.youtube.com/watch?v=mckkPGAso2c",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 10,
+      "link": "https://www.youtube.com/watch?v=YV3Tpdi67eM",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 11,
+      "link": "https://www.youtube.com/watch?v=Y7Oi51_TP8I",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 12,
+      "link": "https://www.youtube.com/watch?v=2PO_fvE2NQM",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 13,
+      "link": "https://www.youtube.com/watch?v=iADzJkIU_tU",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 14,
+      "link": "https://www.youtube.com/watch?v=9_0IU1Ah1Yw",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 15,
+      "link": "https://www.youtube.com/watch?v=qFL5v6CNPK0",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 16,
+      "link": "https://www.youtube.com/watch?v=332oZ83yRug",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 17,
+      "link": "https://www.youtube.com/watch?v=W3BRhcL-3zM",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 18,
+      "link": "https://www.youtube.com/watch?v=i9jFzZ-VKVw",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 19,
+      "link": "https://www.youtube.com/watch?v=juk-jEj4NJg",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 20,
+      "link": "https://www.youtube.com/watch?v=QwTN884trnk",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 21,
+      "link": "https://www.youtube.com/watch?v=tkfJ8cLGS90",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 22,
+      "link": "https://www.youtube.com/watch?v=asLTXzkFjLY",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 23,
+      "link": "https://www.youtube.com/watch?v=hP4j22ELbIM",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 24,
+      "link": "https://www.youtube.com/watch?v=euK-dcmbPh0",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 25,
+      "link": "https://www.youtube.com/watch?v=wlPx93pjKJo",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 26,
+      "link": "https://www.youtube.com/watch?v=2ZgL6cejQ40",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 27,
+      "link": "https://www.youtube.com/watch?v=Jo5bQ9kzZR8",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 28,
+      "link": "https://www.youtube.com/watch?v=moS0WBmiHK4",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 29,
+      "link": "https://www.youtube.com/watch?v=ZdAtdch3EKE",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 30,
+      "link": "https://www.youtube.com/watch?v=6CIorZvubtc",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 31,
+      "link": "https://www.youtube.com/watch?v=_shYQMpTAk4",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 32,
+      "link": "https://www.youtube.com/watch?v=1T8znLnUBYM",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 33,
+      "link": "https://www.youtube.com/watch?v=_tFZRfQNGtA",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 34,
+      "link": "https://www.youtube.com/watch?v=7TrmrAAKLT0",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 35,
+      "link": "https://www.youtube.com/watch?v=j7jMgVpY9Fc",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 36,
+      "link": "https://www.youtube.com/watch?v=sIQnX6L1Kys",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 37,
+      "link": "https://www.youtube.com/watch?v=msxwZymg8ys",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    },
+    {
+      "index": 38,
+      "link": "https://www.youtube.com/watch?v=ThRjTg5aQtU",
+      "error": "Locator.click: Target page, context or browser has been closed"
+    }
+  ],
+  "created_at": "2026-03-07 18:48:19"
+}

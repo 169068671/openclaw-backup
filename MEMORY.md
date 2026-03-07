@@ -895,6 +895,73 @@ chmod +x /home/admin/openclaw/workspace/deploy-notebooklm-auth.sh
 - `/home/admin/openclaw/workspace/deploy-notebooklm-auth.sh` - 自动部署脚本
 - `/root/.notebooklm/storage_state.json` (VPS) - 当前使用的认证文件
 
+### youtube-auth-exporter
+
+**创建日期**: 2026-03-08
+**位置**: `~/.openclaw/skills/youtube-auth-exporter/`
+**打包文件**: `/home/admin/openclaw/workspace/youtube-auth-exporter.skill`
+
+**功能**: 从 Chrome 浏览器导出 YouTube 认证状态，用于自动化下载和 Playwright 访问
+
+**适用场景**:
+- 🔒 下载年龄限制视频
+- 🔒 下载私人/不公开视频
+- 🎵 YouTube Music 高级内容
+- 📹 需要登录才能观看的视频
+- 🎬 YouTube Studio 功能访问
+
+**支持工具**:
+- ✅ yt-dlp（主要使用场景）- 认证视频下载
+- ✅ Playwright - 浏览器自动化访问
+- ✅ curl/wget - 命令行访问
+
+**使用流程**:
+```bash
+# 1. 从 Chrome 导出 cookies
+browser-cookies-exporter .google.com /tmp/google-cookies.txt
+
+# 2. 转换为 Playwright 格式
+python3 ~/.openclaw/skills/youtube-auth-exporter/scripts/convert_cookies.py \
+  /tmp/google-cookies.txt \
+  /tmp/storage_state.json
+
+# 3. 转换为 Netscape 格式（用于 yt-dlp）
+python3 -c "
+import http.cookiejar as cj, json
+state = json.load(open('/tmp/storage_state.json'))
+jar = cj.MozillaCookieJar('/tmp/youtube-cookies.txt')
+for cookie in state.get('cookies', []):
+    c = cj.Cookie(version=0, name=cookie['name'], value=cookie['value'],
+        port=None, port_specified=False, domain=cookie['domain'],
+        domain_specified=True, domain_initial_dot=cookie['domain'].startswith('.'),
+        path=cookie['path'], path_specified=True, secure=cookie['secure'],
+        expires=cookie.get('expires', None), discard=False, comment=None,
+        comment_url=None, rest={}, rfc2109=False)
+    jar.set_cookie(c)
+jar.save()
+"
+
+# 4. 使用 yt-dlp 下载视频
+yt-dlp --cookies /tmp/youtube-cookies.txt \
+  -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" \
+  -o "/tmp/%(title)s.%(ext)s" \
+  "https://www.youtube.com/watch?v=VIDEO_ID"
+```
+
+**与 browser-cookies-exporter 的关系**:
+- browser-cookies-exporter：导出 Chrome cookies 到 Netscape 格式
+- youtube-auth-exporter：转换为 Playwright 格式，提供服务器部署指南
+- 两者配合使用，实现完整的认证导出流程
+
+**维护**:
+- Cookies 有效期：约 14 天
+- 需要定期重新导出
+- 建议设置日历提醒每周更新一次
+
+**相关文件**:
+- `~/.openclaw/skills/youtube-auth-exporter/SKILL.md` - 完整使用指南
+- `~/.openclaw/skills/youtube-auth-exporter/scripts/convert_cookies.py` - 转换脚本
+
 ---
 
 ## 📝 待办事项
