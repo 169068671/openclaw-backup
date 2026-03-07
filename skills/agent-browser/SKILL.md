@@ -22,6 +22,68 @@ agent-browser install
 
 ---
 
+## 🌐 代理配置
+
+### 命令行参数
+
+```bash
+# 使用代理
+agent-browser --proxy "http://127.0.0.1:7890" open https://example.com
+
+# 使用 SOCKS5 代理
+agent-browser --proxy "socks5://127.0.0.1:1080" open https://example.com
+
+# 使用带认证的代理
+agent-browser --proxy "http://user:pass@127.0.0.1:7890" open https://example.com
+```
+
+### 环境变量
+
+```bash
+# 设置全局代理
+export AGENT_BROWSER_PROXY="http://127.0.0.1:7890"
+
+# 或使用 SOCKS5 代理
+export AGENT_BROWSER_PROXY="socks5://127.0.0.1:1080"
+
+# 设置代理绕过（某些主机不使用代理）
+export AGENT_BROWSER_PROXY_BYPASS="localhost,*.internal.com"
+
+# 然后正常使用
+agent-browser open https://example.com
+```
+
+### 常见代理方案
+
+#### SOCKS5 代理（SSH 隧道）⭐
+
+```bash
+# 1. 启动 SSH 隧道
+sshpass -p 'password' ssh -N -D 1080 -f user@host
+
+# 2. 使用代理
+agent-browser --proxy "socks5://127.0.0.1:1080" open https://www.youtube.com
+```
+
+#### HTTP 代理
+
+```bash
+# 使用 HTTP 代理
+agent-browser --proxy "http://127.0.0.1:7890" open https://example.com
+```
+
+### 推荐配置（本地）
+
+```bash
+# ~/.bashrc 或 ~/.zshrc
+export AGENT_BROWSER_PROXY="socks5://127.0.0.1:1080"
+export AGENT_BROWSER_PROXY_BYPASS="localhost,*.internal.com,127.0.0.1"
+```
+
+---
+
+---
+
 ## 🍪 Cookies 导入（批量导入脚本）
 
 ### Cookies 导入脚本

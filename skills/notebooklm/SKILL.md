@@ -51,6 +51,106 @@ notebooklm --version
 
 ---
 
+## 🌐 代理配置
+
+notebooklm-py 使用 httpx 库，支持通过环境变量配置代理。
+
+### SOCKS5 代理（SSH 隧道）⭐
+
+```bash
+# 1. 启动 SSH 隧道
+sshpass -p 'password' ssh -N -D 1080 -f user@host
+
+# 2. 设置代理环境变量
+export HTTP_PROXY="socks5://127.0.0.1:1080"
+export HTTPS_PROXY="socks5://127.0.0.1:1080"
+export ALL_PROXY="socks5://127.0.0.1:1080"
+
+# 3. 使用 notebooklm
+notebooklm login
+```
+
+### HTTP 代理
+
+```bash
+# 设置 HTTP 代理
+export HTTP_PROXY="http://127.0.0.1:7890"
+export HTTPS_PROXY="http://127.0.0.1:7890"
+
+# 使用 notebooklm
+notebooklm create "My Research"
+```
+
+### 代理绕过（某些主机不使用代理）
+
+```bash
+# 设置代理
+export HTTP_PROXY="socks5://127.0.0.1:1080"
+export HTTPS_PROXY="socks5://127.0.0.1:1080"
+
+# 设置绕过（某些主机直接连接）
+export NO_PROXY="localhost,*.internal.com,127.0.0.1"
+
+# 使用 notebooklm
+notebooklm list
+```
+
+### 推荐配置（本地）⭐
+
+**~/.bashrc 或 ~/.zshrc**：
+
+```bash
+# NotebookLM 代理配置
+export HTTP_PROXY="socks5://127.0.0.1:1080"
+export HTTPS_PROXY="socks5://127.0.0.1:1080"
+export ALL_PROXY="socks5://127.0.0.1:1080"
+export NO_PROXY="localhost,*.internal.com,127.0.0.1"
+
+# SSH 隧道启动函数
+function start-ssh-tunnel() {
+    sshpass -p 'Whj001.Whj001' ssh -N -D 1080 -f root@76.13.219.143
+    echo "✅ SSH 隧道已启动（SOCKS5: 127.0.0.1:1080）"
+}
+
+# 停止隧道
+function stop-ssh-tunnel() {
+    ps aux | grep "ssh.*1080" | awk '{print $2}' | xargs kill
+    echo "✅ SSH 隧道已停止"
+}
+```
+
+### 使用示例
+
+```bash
+# 1. 启动 SSH 隧道
+start-ssh-tunnel
+
+# 2. 设置代理（如果已在 ~/.bashrc 中配置，可跳过）
+export HTTP_PROXY="socks5://127.0.0.1:1080"
+export HTTPS_PROXY="socks5://127.0.0.1:1080"
+
+# 3. 使用 notebooklm
+notebooklm login
+notebooklm create "My Research"
+notebooklm source add "https://www.youtube.com/watch?v=XXX"
+
+# 4. 停止隧道（可选）
+stop-ssh-tunnel
+```
+
+### 验证代理
+
+```bash
+# 检查环境变量
+echo $HTTP_PROXY
+echo $HTTPS_PROXY
+
+# 测试代理连接
+curl --socks5 127.0.0.1:1080 https://www.google.com
+```
+
+---
+
 ## 📋 功能总览
 
 | 类别 | 功能 | 说明 |
