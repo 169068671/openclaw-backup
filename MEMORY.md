@@ -276,6 +276,32 @@ pip install --upgrade musicdl
 - **脚本位置**: ~/.openclaw/skills/notebooklm-youtube-importer/
 - **⚠️ 限制**: YouTube 自动化访问限制，需要手动提供链接或使用 cookies
 
+### ssh-tunnel（SSH 隧道管理）
+- **位置**: ~/.openclaw/skills/ssh-tunnel/
+- **功能**: SSH 隧道管理（启动/停止/状态/重启）和 Google 连通性测试
+- **版本**: v1.0
+- **Git提交**: - (2026-03-07)
+- **特点**: 一键操作、自动检测 Google、详细状态显示、彩色输出、SSH 密钥认证
+- **安装状态**: ✅ 已创建并测试（2026-03-07 17:58）
+  - ✅ ssh-tunnel.sh - 主脚本
+  - ✅ SKILL.md - 完整技能文档
+  - ✅ README.md - 快速开始指南
+- **配置**:
+  - 服务器：76.13.219.143 (srv1437164)
+  - 用户：root
+  - 本地端口：1080 (SOCKS5)
+  - SSH 密钥：~/.ssh/id_rsa
+- **常用命令**:
+  ```bash
+  ~/.openclaw/skills/ssh-tunnel/ssh-tunnel.sh start              # 启动隧道（自动测试 Google）
+  ~/.openclaw/skills/ssh-tunnel/ssh-tunnel.sh start --no-check    # 启动隧道（不测试 Google）
+  ~/.openclaw/skills/ssh-tunnel/ssh-tunnel.sh stop               # 停止隧道
+  ~/.openclaw/skills/ssh-tunnel/ssh-tunnel.sh status             # 查看状态
+  ~/.openclaw/skills/ssh-tunnel/ssh-tunnel.sh restart            # 重启隧道
+  ```
+- **Google 测试结果**: ❌ VPS 无法访问 Google（网络限制）
+- **说明**: SSH 隧道本身正常，VPS 网络质量导致无法访问 Google
+
 ### 安装的技能（ClawHub）
 - feishu-doc (飞书文档)
 - feishu-drive (飞书云盘)
