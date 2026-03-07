@@ -1,6 +1,6 @@
 # MEMORY.md - 长期记忆
 
-最后更新: 2026-03-04 03:16
+最后更新: 2026-03-07 16:10
 
 ---
 
@@ -212,6 +212,7 @@ pip install --upgrade musicdl
   - ✅ agent-browser CLI (v0.16.3)
   - ✅ Chromium 浏览器
   - ✅ 基本功能测试通过（打开网页、快照、点击、关闭）
+  - ✅ Cookies 导入脚本（2026-03-07）
 - **常用命令**:
   ```bash
   # 打开网页
@@ -228,6 +229,52 @@ pip install --upgrade musicdl
   # 关闭浏览器
   agent-browser close
   ```
+
+### NotebookLM（Google NotebookLM 非官方 API）
+- **位置**: ~/.openclaw/skills/notebooklm/
+- **功能**: Google NotebookLM 非官方 Python API
+- **版本**: 0.3.3
+- **安装位置**: ~/.local/bin/notebooklm
+- **Git提交**: 138f7d3 (2026-03-07)
+- **特点**: 笔记本管理、源文件导入、聊天对话、内容生成、下载导出
+- **参考**: https://github.com/joschan21/notebooklm-py
+- **安装状态**: ✅ 已安装并测试（2026-03-07）
+  - ✅ notebooklm CLI (v0.3.3)
+  - ✅ Playwright Chromium
+  - ✅ 成功登录（保存到 ~/.notebooklm/storage_state.json）
+  - ✅ 基本功能测试通过（创建笔记本、添加源、生成内容）
+- **常用命令**:
+  ```bash
+  # 首次登录
+  notebooklm login
+
+  # 创建笔记本
+  notebooklm create "My Research"
+
+  # 添加源文件
+  notebooklm source add "https://www.youtube.com/watch?v=XXX"
+
+  # 生成内容
+  notebooklm generate audio --wait
+
+  # 下载内容
+  notebooklm download audio ./podcast.mp3
+  ```
+- **⚠️ 重要提醒**: 非官方库，使用未记录的 Google API，可能随时更改
+
+### notebooklm-youtube-importer（YouTube 批量导入到 NotebookLM）
+- **位置**: ~/.openclaw/skills/notebooklm-youtube-importer/
+- **功能**: 批量导入 YouTube 视频到 NotebookLM 笔记本
+- **Git提交**: - (2026-03-07)
+- **特点**: 自动去重、进度显示、错误处理
+- **安装状态**: ✅ 已创建并测试（2026-03-07）
+  - ✅ notebooklm_youtube_importer.py - FreeCAD 教程专用导入器
+  - ✅ youtube_to_notebooklm.py - 从 YouTube URL 导入
+  - ✅ youtube_browser_importer.py - 使用 agent-browser 自动提取
+  - ✅ delete_duplicates.py - 删除重复源文件
+- **成功案例**: FreeCAD Python 教程（38 个视频）
+- **脚本位置**: ~/.openclaw/skills/notebooklm-youtube-importer/
+- **⚠️ 限制**: YouTube 自动化访问限制，需要手动提供链接或使用 cookies
 
 ### 安装的技能（ClawHub）
 - feishu-doc (飞书文档)
@@ -466,7 +513,17 @@ musicdl -u "歌曲URL"
 - **2026-03-03**: OpenClaw升级（2026.2.1→2026.3.2），yutto-downloader技能创建，SSH隧道配置
 - **2026-03-04**: MEMORY.md 创建
 - **2026-03-06**: agent-reach 技能创建（网络资源搜索，支持 13+ 平台）
-- **2026-03-07**: GitHub CLI (gh v2.87.3) 安装完成，agent-reach 基础组件安装完成（6/13 渠道可用），browser-cookies-exporter 技能创建
+- **2026-03-07**:
+  - GitHub CLI (gh v2.87.3) 安装完成
+  - agent-reach 基础组件安装完成（6/13 渠道可用）
+  - browser-cookies-exporter 技能创建
+  - agent-browser 技能创建（Vercel 无头浏览器自动化）
+  - agent-browser Cookies 导入脚本完成（Google cookies 41/41 成功）
+  - NotebookLM 技能创建（Google NotebookLM 非官方 API）
+  - notebooklm-youtube-importer 技能创建（YouTube 批量导入到 NotebookLM）
+  - FreeCAD Python 教程成功导入到 NotebookLM（38 个视频）
+  - 技能代理配置文档更新（agent-browser、notebooklm、yt-dlp）
+  - Git 本地提交 19 个（等待推送）
 
 ---
 
