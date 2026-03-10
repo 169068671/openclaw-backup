@@ -68,11 +68,21 @@ cd /home/admin/openclaw/workspace && git status
 
 **备用方案：SSH 隧道（SOCKS5）**
 
-仅在直连失败或访问其他被限制的国外网站时使用。
+仅在直连失败或访问其他被限制的国外网站时使用（包括 agent-reach 需要代理时）。
 
 **启动方法：**
 ```bash
 sshpass -p 'Whj001.Whj001' ssh -N -D 1080 -f root@76.13.219.143
+```
+
+**检查隧道状态：**
+```bash
+netstat -tlnp | grep 1080
+```
+
+**停止隧道：**
+```bash
+ps aux | grep "ssh.*1080" | awk '{print $2}' | xargs kill
 ```
 
 **浏览器配置：**
@@ -80,6 +90,32 @@ sshpass -p 'Whj001.Whj001' ssh -N -D 1080 -f root@76.13.219.143
 - SOCKS 主机：`127.0.0.1`，端口：`1080`
 
 **详细文档：** `SSH隧道代理方案.md`
+
+---
+
+## GitHub CLI (gh) 配置
+
+**认证状态**: ✅ 已认证（2026-03-07）
+- 账号：169068671
+- 协议：HTTPS
+- Token 作用域：完整权限（admin, repo, workflow, etc.）
+
+**⚠️ 安全提醒**：
+- Token 保存在 GitHub CLI 的加密配置中（~/.local/share/gh/hosts.yml）
+- 如需查看 token，运行：`gh auth status`
+- 如需重置，访问 GitHub Settings → Developer settings → Personal access tokens
+- 建议定期更换 token
+
+**使用场景**：
+- agent-reach GitHub 渠道（已解锁完整功能）
+- GitHub 仓库管理
+- Issue/PR 操作
+
+**认证方法**：
+```bash
+# 使用 token 认证
+echo "<token>" | gh auth login --with-token
+```
 
 ### 替代方案：Tinyproxy（HTTP）⚠️
 
@@ -155,5 +191,91 @@ Allow 0.0.0.0/0
 ### 推荐使用
 
 - **Bilibili 下载**：yutto（专用，更稳定）
+- **YouTube 下载**：yt-dlp（agent-reach 技能，配置完整）⭐
 - **综合视频下载**：yt-dlp（支持1000+网站）
 - **音乐/有声读物**：musicdl（50+音乐平台）
+
+### YouTube 下载配置（agent-reach）⭐
+
+**完整下载命令**：
+```bash
+yt-dlp --proxy socks5://127.0.0.1:1080 \
+  --cookies-from-browser chrome \
+  --js-runtimes node \
+  --remote-components ejs:github \
+  -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" \
+  -o "/tmp/%(title)s.%(ext)s" \
+  "https://www.youtube.com/watch?v=XXX"
+```
+
+**必需参数说明**：
+- `--proxy socks5://127.0.0.1:1080`：SSH 隧道代理（必需）
+- `--cookies-from-browser chrome`：使用浏览器 cookies（必需）
+- `--js-runtimes node`：使用 Node.js 解析（必需）
+- `--remote-components ejs:github`：使用 GitHub EJS 组件（必需）
+
+**前置条件**：
+1. 启动 SSH 隧道：`sshpass -p 'Whj001.Whj001' ssh -N -D 1080 -f root@76.13.219.143`
+2. 检查隧道状态：`netstat -tlnp | grep 1080`
+
+**常见错误**：
+- `Network is unreachable` → 需要代理
+- `Sign in to confirm you're not a bot` → 需要 cookies
+- `n challenge solving failed` → 需要 JS runtime 和 EJS 组件
+
+**详细说明**：见 agent-reach 技能 SKILL.md
+
+---
+
+### YouTube Cookies 导出（Netscape 格式）📁
+
+**Cookies 文件位置**：`/home/admin/Desktop/cookies-youtube.txt`
+- 格式：Netscape HTTP Cookie File
+- 大小：3.1K
+- 包含：21 个 cookies
+
+**使用导出的 cookies**：
+```bash
+yt-dlp --proxy socks5://127.0.0.1:1080 \
+  --cookies "/home/admin/Desktop/cookies-youtube.txt" \
+  --js-runtimes node \
+  --remote-components ejs:github \
+  -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" \
+  -o "/tmp/%(title)s.%(ext)s" \
+  "https://www.youtube.com/watch?v=XXX"
+```
+
+**导出 cookies 命令**：
+```bash
+# 安装 browser-cookie3
+pip3 install --user browser-cookie3
+
+# 导出 YouTube cookies（Netscape 格式）
+python3 -c "
+import browser_cookie3
+import http.cookiejar as cj
+
+cookies = browser_cookie3.chrome(domain_name='.youtube.com')
+cookie_jar = cj.MozillaCookieJar('/home/admin/Desktop/cookies-youtube.txt')
+for cookie in cookies:
+    cookie_jar.set_cookie(cookie)
+cookie_jar.save()
+"
+```
+
+**Cookie 有效期**：
+- Cookies 会随时间过期
+- 建议定期重新导出
+- 如果遇到认证错误，重新导出即可
+
+**两种使用方式对比**：
+
+| 方式 | 优点 | 缺点 |
+|-----|------|------|
+| `--cookies-from-browser chrome` | 自动获取最新 cookies | 需要浏览器运行 |
+| `--cookies "/path/to/file"` | 可重复使用，方便脚本调用 | cookies 可能过期 |
+
+**安全提醒**：
+- Cookies 包含敏感信息，请勿分享
+- 建议定期更换 YouTube 密码
+- 注意保护 cookies 文件安全

@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.2.1",
-    "lastTouchedAt": "2026-02-04T05:52:16.246Z"
+    "lastTouchedVersion": "2026.3.2",
+    "lastTouchedAt": "2026-03-08T08:58:19.626Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-04T05:52:16.239Z",
@@ -39,6 +39,8 @@
         ]
       },
       "generic": {
+        "baseUrl": "https://open.bigmodel.cn/api/paas/v4/",
+        "apiKey": "a79705d7d5e34a159ed01cd558412017.DqWZWQr3ZosNIn7c",
         "api": "openai-completions",
         "models": [
           {
@@ -57,14 +59,18 @@
             "contextWindow": 128000,
             "maxTokens": 4096
           }
-        ],
-        "apiKey": "a79705d7d5e34a159ed01cd558412017.DqWZWQr3ZosNIn7c",
-        "baseUrl": "https://open.bigmodel.cn/api/paas/v4/"
+        ]
       }
     }
   },
   "agents": {
     "defaults": {
+      "model": {
+        "primary": "generic/glm-4.7"
+      },
+      "models": {
+        "generic/glm-4.7": {}
+      },
       "workspace": "/home/admin/openclaw/workspace",
       "compaction": {
         "mode": "safeguard"
@@ -72,12 +78,6 @@
       "maxConcurrent": 4,
       "subagents": {
         "maxConcurrent": 8
-      },
-      "model": {
-        "primary": "generic/glm-4.7"
-      },
-      "models": {
-        "generic/glm-4.7": {}
       }
     }
   },
@@ -97,7 +97,9 @@
   },
   "commands": {
     "native": "auto",
-    "nativeSkills": "auto"
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
   },
   "hooks": {
     "internal": {
@@ -105,6 +107,20 @@
       "entries": {
         "session-memory": {
           "enabled": true
+        },
+        "self-improvement": {
+          "enabled": true
+        }
+      },
+      "installs": {
+        "self-improvement": {
+          "source": "path",
+          "sourcePath": "/home/admin/.openclaw/skills/self-improving-agent/hooks/openclaw",
+          "installPath": "/home/admin/.openclaw/hooks/self-improvement",
+          "installedAt": "2026-03-08T03:55:52.113Z",
+          "hooks": [
+            "self-improvement"
+          ]
         }
       }
     }
@@ -150,6 +166,11 @@
   "skills": {
     "install": {
       "nodeManager": "npm"
+    },
+    "entries": {
+      "amap-traffic": {
+        "apiKey": "c797e5f669fe3117b038492ba76ff940"
+      }
     }
   },
   "plugins": {
@@ -162,6 +183,12 @@
       },
       "feishu": {
         "enabled": true
+      },
+      "openclaw-tavily": {
+        "enabled": true,
+        "config": {
+          "apiKey": "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"
+        }
       }
     },
     "installs": {
@@ -185,6 +212,19 @@
         "installPath": "/home/admin/.openclaw/extensions/feishu",
         "version": "0.1.6",
         "installedAt": "2026-02-02T10:01:04.126Z"
+      },
+      "openclaw-tavily": {
+        "source": "npm",
+        "spec": "openclaw-tavily",
+        "installPath": "/home/admin/.openclaw/extensions/openclaw-tavily",
+        "version": "0.2.1",
+        "resolvedName": "openclaw-tavily",
+        "resolvedVersion": "0.2.1",
+        "resolvedSpec": "openclaw-tavily@0.2.1",
+        "integrity": "sha512-Y/cYTiKWGjWm8TF0/0DGyB80Kuke1oJKEPcFvjmHutXSZSx42RmMqZ3I6kMz12hw1eoxJwQ8a0EJQAvq45KciQ==",
+        "shasum": "544d324879914108c50cfd801d7cff704069970d",
+        "resolvedAt": "2026-03-08T08:58:17.159Z",
+        "installedAt": "2026-03-08T08:58:19.076Z"
       }
     }
   }
