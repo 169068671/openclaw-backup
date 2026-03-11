@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  opencode:
+    build: .
+    container_name: opencode
+    restart: unless-stopped
+    volumes:
+      # 挂载工作目录
+      - ./workspace:/workspace
+      # 持久化配置
+      - ./config:/root/.opencode
+      # 如果需要访问宿主机文件
+      - /home:/home:ro
+    environment:
+      # AI 模型提供商配置（根据需要修改）
+      - OPENCODE_PROVIDER=anthropic
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENCODE_MODEL=${OPENCODE_MODEL:-claude-3-5-sonnet-20241022}
+      # 时区设置
+      - TZ=Asia/Shanghai
+    ports:
+      - "59000:59000"
+    stdin_open: true
+    tty: true
+    command: >
+      sh -c "opencode --help"
