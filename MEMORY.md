@@ -1097,3 +1097,17 @@ ssh root@76.13.219.143 "notebooklm list"
 - 5 个提交
 - 69 个文件
 - 18,418 行新增
+
+## 📦 GitHub CLI (gh) 安装（2026-03-12）
+
+**版本**: 2.88.1
+**安装日期**: 2026-03-12
+**位置**: /usr/bin/gh
+
+**安装方式**:
+- 使用官方 APT 仓库
+- 添加 GitHub CLI GPG key
+- 添加 GitHub CLI 仓库源
+- sudo apt install gh -y
+
+**状态**: ✅ 已安装，等待认证
