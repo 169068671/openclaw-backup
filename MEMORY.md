@@ -1111,3 +1111,72 @@ ssh root@76.13.219.143 "notebooklm list"
 - sudo apt install gh -y
 
 **状态**: ✅ 已安装，等待认证
+
+---
+
+## 🐛 DingTalk 消息去重修复（2026-03-13）
+
+**问题**: 钉钉插件只能处理第一个消息，后续消息被标记为"重复"而跳过
+
+**原因分析**:
+1. 消息去重函数参数不匹配
+   - 函数定义：`isMessageProcessed(messageId: string)` 只接受一个参数
+   - 函数调用：`isMessageProcessed(account.accountId, messageId)` 传入两个参数
+   - 导致第二个参数被忽略，去重逻辑失效
+
+2. AI 模型响应超时
+   - GLM-4.7 模型响应超时
+   - 钉钉插件立即确认了消息
+   - 钉钉平台自动重试发送相同消息
+   - 由于去重逻辑失效，被误判为新消息并标记为"重复"
+
+**修复内容**:
+修改 `~/.openclaw/extensions/dingtalk-connector/plugin.ts`
+
+```typescript
+// 修复前
+function isMessageProcessed(messageId: string): boolean {
+  if (!messageId) return false;
+  return processedMessages.has(messageId);
+}
+
+function markMessageProcessed(messageId: string): void {
+  if (!messageId) return;
+  processedMessages.set(messageId, Date.now());
+  // ...
+}
+
+// 修复后
+function isMessageProcessed(accountId: string, messageId: string): boolean {
+  if (!accountId || !messageId) return false;
+  const key = `${accountId}:${messageId}`;
+  return processedMessages.has(key);
+}
+
+function markMessageProcessed(accountId: string, messageId: string): void {
+  if (!accountId || !messageId) return;
+  const key = `${accountId}:${messageId}`;
+  processedMessages.set(key, Date.now());
+  // ...
+}
+```
+
+**修复结果**:
+- ✅ 支持账号维度隔离（不同账号的消息不会互相冲突）
+- ✅ 消息去重逻辑正确工作
+- ✅ 可以连续发送多个消息，都能正常处理
+
+**测试验证**:
+- Gateway 重启：PID 37160（02:36 启动）
+- 钉钉 Stream：✅ 已连接
+- 消息测试：✅ 连续消息处理正常
+
+**Git 提交**:
+- 提交 ID: 0be94ed
+- 时间: 2026-03-13 02:43 GMT+8
+- 分支: master
+
+---
+
+**记录维护人**: openclaw ⚡
+**最后更新**: 2026-03-13 02:43 (GMT+8)
