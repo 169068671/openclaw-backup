@@ -1,0 +1,169 @@
+# GitHub Pusher Skill Package
+
+**技能名称：** github-pusher
+**版本：** 1.0.0
+**作者：** openclaw
+**描述：** 自动化 GitHub 推送到 openclaw-backup 仓库
+
+---
+
+## 📦 技能包信息
+
+### 包含文件
+
+1. **SKILL.md** - 技能文档
+2. **README.md** - 使用说明
+3. **push.sh** - 完整推送流程
+4. **commit.sh** - 仅提交
+5. **status.sh** - 查看状态
+6. **test.sh** - 测试连接
+
+### 安装位置
+
+```
+~/.openclaw/skills/github-pusher/
+```
+
+---
+
+## 🚀 快速安装
+
+### 方法1：从 GitHub 下载
+
+```bash
+# 克隆技能包
+git clone https://github.com/169068671/openclaw-backup.git /tmp/github-pusher
+
+# 复制到技能目录
+cp -r /tmp/github-pusher/github-pusher ~/.openclaw/skills/
+
+# 设置执行权限
+chmod +x ~/.openclaw/skills/github-pusher/*.sh
+
+# 清理
+rm -rf /tmp/github-pusher
+```
+
+### 方法2：手动安装
+
+```bash
+# 创建技能目录
+mkdir -p ~/.openclaw/skills/github-pusher
+
+# 复制所有文件
+cp -r github-pusher/* ~/.openclaw/skills/github-pusher/
+
+# 设置执行权限
+chmod +x ~/.openclaw/skills/github-pusher/*.sh
+```
+
+---
+
+## 🧪 安装后测试
+
+```bash
+# 测试连接
+~/.openclaw/skills/github-pusher/test.sh
+
+# 查看状态
+~/.openclaw/skills/github-pusher/status.sh
+```
+
+---
+
+## 📋 使用方法
+
+### 基本使用
+
+```bash
+# 推送所有更改
+~/.openclaw/skills/github-pusher/push.sh
+
+# 推送所有更改（使用自定义消息）
+~/.openclaw/skills/github-pusher/push.sh "feat: Add new feature"
+
+# 仅提交，不推送
+~/.openclaw/skills/github-pusher/commit.sh "docs: Update README"
+
+# 查看状态
+~/.openclaw/skills/github-pusher/status.sh
+
+# 测试连接
+~/.openclaw/skills/github-pusher/test.sh
+```
+
+---
+
+## 🔧 配置
+
+### 工作区
+
+默认工作区：`/home/admin/openclaw/workspace`
+
+如需修改，编辑 `push.sh` 和 `commit.sh`：
+```bash
+WORKSPACE="/your/workspace/path"
+```
+
+### Git 用户
+
+确保 Git 用户已配置：
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+```
+
+### SSH 密钥
+
+确保 SSH 密钥已配置：
+```bash
+ls -la ~/.ssh/id_ed25519_github
+```
+
+---
+
+## 📚 详细文档
+
+- **技能文档：** `SKILL.md`
+- **使用说明：** `README.md`
+
+---
+
+## 🔗 相关资源
+
+- **GitHub 仓库：** https://github.com/169068671/openclaw-backup
+- **技能位置：** ~/.openclaw/skills/github-pusher
+- **文档：** https://github.com/169068671/openclaw-backup/blob/master/github-pusher/
+
+---
+
+## ✅ 功能清单
+
+- [x] 自动添加文件
+- [x] 自动提交
+- [x] 自动推送
+- [x] 状态检查
+- [x] 连接测试
+- [x] 错误处理
+- [x] 自定义提交消息
+- [x] 详细文档
+
+---
+
+## 🎉 开始使用
+
+```bash
+# 测试连接
+~/.openclaw/skills/github-pusher/test.sh
+
+# 查看状态
+~/.openclaw/skills/github-pusher/status.sh
+
+# 推送更改
+~/.openclaw/skills/github-pusher/push.sh "your message"
+```
+
+---
+
+**技能包版本：** 1.0.0
+**最后更新：** 2026-03-13
