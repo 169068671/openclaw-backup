@@ -1,0 +1,36 @@
+#!/bin/bash
+# 手动推送到 GitHub 的命令清单
+
+echo "=== 手动推送到 GitHub 的命令 ==="
+echo ""
+echo "📝 本地提交："
+cd /home/admin/openclaw/workspace
+git log --oneline -3
+
+echo ""
+echo "📝 推送步骤："
+echo ""
+echo "步骤1：复制 .git 目录到 VPS"
+echo "sshpass -p 'Whj001.Whj001' scp -r /home/admin/openclaw/workspace/.git root@76.13.219.143:/vps-backup/openclaw-backup/"
+echo ""
+echo "步骤2：在 VPS 上设置远程仓库为 SSH"
+echo "sshpass -p 'Whj001.Whj001' ssh root@76.13.219.143 'cd /vps-backup/openclaw-backup && git remote set-url origin git@github.com:169068671/openclaw-backup.git'"
+echo ""
+echo "步骤3：推送到 GitHub（在 VPS 上执行）"
+echo "sshpass -p 'Whj001.Whj001' ssh root@76.13.219.143 'cd /vps-backup/openclaw-backup && git push origin master'"
+echo ""
+echo "=== 一键推送命令 ==="
+echo ""
+echo "完整命令："
+echo "sshpass -p 'Whj001.Whj001' scp -r /home/admin/openclaw/workspace/.git root@76.13.219.143:/vps-backup/openclaw-backup/ && sshpass -p 'Whj001.Whj001' ssh root@76.13.219.143 'cd /vps-backup/openclaw-backup && git remote set-url origin git@github.com:169068671/openclaw-backup.git && git push origin master'"
+echo ""
+echo "=== 检查推送状态 ==="
+echo ""
+echo "查看本地提交："
+echo "git log --oneline -3"
+echo ""
+echo "查看 VPS 提交："
+echo "sshpass -p 'Whj001.Whj001' ssh root@76.13.219.143 'cd /vps-backup/openclaw-backup && git log --oneline -3'"
+echo ""
+echo "查看 GitHub 仓库："
+echo "https://github.com/169068671/openclaw-backup"
