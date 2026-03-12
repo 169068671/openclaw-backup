@@ -1098,6 +1098,53 @@ ssh root@76.13.219.143 "notebooklm list"
 - 69 个文件
 - 18,418 行新增
 
+### GitHub Pusher 技能（2026-03-13）
+
+**技能位置**: `~/.openclaw/skills/github-pusher/`
+
+**功能**:
+- 完整的 Git push 工作流
+- 自动添加、提交、推送、验证
+- 彩色输出提示
+- 提供提交消息验证
+
+**使用方法**:
+```bash
+# 基本使用
+~/.openclaw/skills/github-pusher/push.sh "提交消息"
+
+# 或使用简短命令
+~/.openclaw/skills/github-pusher/push.sh "update"
+
+# 不提供提交消息时，会自动生成：
+# "update 2026-03-13 02:44:00"
+```
+
+**工作流程**:
+1. 添加所有更改：`git add .`
+2. 提交更改：`git commit -m "提交消息"`
+3. 推送到 GitHub：`git push origin master`
+4. 验证推送：对比本地和远程提交数
+
+**相关脚本**:
+- `push.sh` - 完整推送流程
+- `commit.sh` - 仅提交不推送
+- `status.sh` - 查看仓库状态
+- `test.sh` - 测试连接和权限
+
+**配置**:
+- 工作空间：`/home/admin/openclaw/workspace`
+- 远程仓库：`git@github.com:169068671/openclaw-backup.git`
+- 分支：`master`
+
+**最佳实践**:
+✅ 以后推送代码时，**优先使用 github-pusher 技能**
+❌ 避免直接使用 git 命令推送（容易出错）
+✅ 提供清晰的提交消息，便于追踪历史
+✅ 使用 `/new` 命令后记得推送
+
+---
+
 ## 📦 GitHub CLI (gh) 安装（2026-03-12）
 
 **版本**: 2.88.1
