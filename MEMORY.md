@@ -1316,5 +1316,98 @@ function markMessageProcessed(accountId: string, messageId: string): void {
 
 ---
 
+## 🎬 YouTube Access Skill（2026-03-14）
+
+**创建日期**: 2026-03-14 19:03 GMT+8
+**状态**: ✅ 完成
+
+### 基本信息
+- **技能名称**: YouTube Access Skill
+- **技能包**: `/home/admin/openclaw/workspace/youtube-access.skill`
+- **安装位置**: `~/.openclaw/skills/youtube-access/`
+
+### 功能特性
+1. **Cookies 管理**
+   - ✅ 从 BestCookier JSON 转换为 Playwright/Netscape 格式
+   - ✅ 验证 cookies 的完整性和有效性
+   - ✅ 显示 cookies 的详细信息（数量、过期时间）
+
+2. **视频下载**
+   - ✅ 使用 cookies 下载 YouTube 视频
+   - ✅ 支持 SSH 隧道代理
+   - ✅ 支持字幕下载（中文简体、中文繁体、英文）
+   - ✅ 支持自定义视频格式
+
+3. **Cookies 验证**
+   - ✅ 测试 cookies 是否有效
+   - ✅ 检查登录状态
+
+### 文件列表
+- `SKILL.md` - 完整技能文档（6.3K）
+- `README.md` - 快速开始指南（5.7K）
+- `yt-cookies-manager.py` - Python cookies 管理器（8.7K）
+- `yt-download.sh` - 视频下载脚本（3.9K）
+- `yt-validate.sh` - Cookies 验证脚本（3.2K）
+- `test.sh` - 功能测试脚本（2.3K）
+- `references/` - 参考资料目录
+
+### 测试结果
+- ✅ Cookies 转换（Playwright）: 成功
+- ✅ Cookies 转换（Netscape）: 成功
+- ✅ Cookies 验证（完整性）: 通过（16 个 cookies）
+- ✅ Cookies 有效性验证: 通过（成功访问 YouTube）
+- ✅ 下载脚本帮助: 正常
+
+### 使用示例
+
+**快速开始（3 步）**:
+```bash
+# 1. 转换 cookies
+python3 ~/.openclaw/skills/youtube-access/yt-cookies-manager.py ~/Downloads/cookies.json
+
+# 2. 验证 cookies
+~/.openclaw/skills/youtube-access/yt-validate.sh
+
+# 3. 下载视频
+~/.openclaw/skills/youtube-access/yt-download.sh "https://www.youtube.com/watch?v=VIDEO_ID"
+```
+
+**下载带字幕的视频**:
+```bash
+~/.openclaw/skills/youtube-access/yt-download.sh -s "VIDEO_URL"
+```
+
+**指定输出目录**:
+```bash
+~/.openclaw/skills/youtube-access/yt-download.sh -o ~/Videos "VIDEO_URL"
+```
+
+### Cookies 信息
+- **源文件**: `/home/admin/Downloads/BestCookier20260314-185155-youtube.com.json`
+- **Cookies 数量**: 16 个
+- **有效期**: 2027 年 3 月/4 月
+- **重要 cookies**: SID, HSID, SSID, APISID, SAPISID, LOGIN_INFO, PREF
+
+### 依赖工具
+- Python 3
+- yt-dlp (v2026.03.03)
+- curl
+- bash
+
+### 相关技能
+- yt-dlp-downloader - yt-dlp 下载技能（基础版）
+- youtube-auth-exporter - YouTube 认证导出技能
+- browser-cookies-exporter - 浏览器 cookies 导出技能
+- ssh-tunnel - SSH 隧道管理技能
+
+### 文档
+- 使用指南: `/home/admin/openclaw/workspace/YouTube Access Skill使用指南.md`
+- 配置报告: `/home/admin/openclaw/workspace/YouTube Access Skill配置完成报告.md`
+- 完整文档: `~/.openclaw/skills/youtube-access/SKILL.md`
+- 快速开始: `~/.openclaw/skills/youtube-access/README.md`
+- 测试脚本: `~/.openclaw/skills/youtube-access/test.sh`
+
+---
+
 **记录维护人**: openclaw ⚡
-**最后更新**: 2026-03-13 16:15 (GMT+8)
+**最后更新**: 2026-03-14 19:03 (GMT+8)
