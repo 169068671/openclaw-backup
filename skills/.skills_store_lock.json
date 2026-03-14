@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "notebooklm-skill": {
+      "name": "Notebooklm",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=notebooklm-skill",
+      "source": "skillhub",
+      "version": "0.1.0"
+    },
+    "youtube-api-skill": {
+      "name": "YouTube",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=youtube-api-skill",
+      "source": "skillhub",
+      "version": "1.0.3"
+    },
+    "youtube-full": {
+      "name": "Youtube Full",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=youtube-full",
+      "source": "skillhub",
+      "version": "1.4.1"
+    }
+  }
+}

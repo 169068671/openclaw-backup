@@ -1,6 +1,6 @@
 # MEMORY.md - 长期记忆
 
-最后更新: 2026-03-07 16:10
+最后更新: 2026-03-13 16:15 (GMT+8)
 
 ---
 
@@ -276,6 +276,27 @@ pip install --upgrade musicdl
 - **脚本位置**: ~/.openclaw/skills/notebooklm-youtube-importer/
 - **⚠️ 限制**: YouTube 自动化访问限制，需要手动提供链接或使用 cookies
 
+### youtube-full（YouTube 完整工具集）
+- **位置**: ~/.openclaw/skills/youtube-full/
+- **功能**: 完整的 YouTube 工具集（字幕、搜索、频道、播放列表、元数据）
+- **版本**: 1.4.1
+- **提供商**: TranscriptAPI.com
+- **技能包位置**: /home/admin/openclaw/workspace/skills/youtube-full/
+- **状态**: ✅ 已安装并配置
+- **API Key**: ✅ 已配置（见"🔑 API 账号信息"章节）
+- **特点**: 全功能 YouTube 访问，支持搜索、字幕提取、频道浏览、播放列表
+- **功能特性**:
+  - ✅ YouTube 视频/频道搜索
+  - ✅ 字幕提取（transcript）
+  - ✅ 频道信息获取
+  - ✅ 播放列表列表
+  - ✅ 频道内搜索
+- **免费额度**: 100 credits（无需信用卡）
+- **限速**: 300 请求/分钟
+- **API 文档**: https://transcriptapi.com/openapi.json
+- **安装状态**: ✅ 已安装（2026-03-13 15:03）
+- **测试结果**: ✅ 搜索功能正常工作
+
 ### ssh-tunnel（SSH 隧道管理）
 - **位置**: ~/.openclaw/skills/ssh-tunnel/
 - **功能**: SSH 隧道管理（启动/停止/状态/重启）和 Google 连通性测试
@@ -321,6 +342,76 @@ pip install --upgrade musicdl
 - stock-watcher (股票监控)
 - yt-dlp-downloader (视频下载)
 - yutto-downloader (B站下载)
+
+---
+
+## 🔑 API 账号信息
+
+### TranscriptAPI.com
+
+**服务地址**: https://transcriptapi.com/
+**创建日期**: 2026-03-13
+**状态**: ✅ 已配置并测试
+
+**账号信息**:
+- **邮箱**: 169068671@qq.com
+- **密码**: Whj001Whj001
+- **API Key**: sk_pAFk5TPGK8w8ON13C34NzMc3ig4mLZATFVp2dGqUZv8
+
+**使用技能**: youtube-full
+**配置位置**: ~/.openclaw/openclaw.json
+**环境变量**: TRANSCRIPT_API_KEY
+
+**免费额度**:
+- **Credits**: 100
+- **限速**: 300 请求/分钟
+- **信用卡**: 不需要
+
+**API 使用方式**:
+```bash
+# 使用环境变量
+export TRANSCRIPT_API_KEY=sk_pAFk5TPGK8w8ON13C34NzMc3ig4mLZATFVp2dGqUZv8
+
+# YouTube 搜索（1 credit）
+curl -s "https://transcriptapi.com/api/v2/youtube/search?q=AI+tutorial&limit=20" \
+  -H "Authorization: Bearer $TRANSCRIPT_API_KEY"
+
+# 获取字幕（1 credit）
+curl -s "https://transcriptapi.com/api/v2/youtube/transcript\
+?video_url=VIDEO_URL&format=text&include_timestamp=true&send_metadata=true" \
+  -H "Authorization: Bearer $TRANSCRIPT_API_KEY"
+
+# 频道最新视频（免费）
+curl -s "https://transcriptapi.com/api/v2/youtube/channel/latest?channel=@TED" \
+  -H "Authorization: Bearer $TRANSCRIPT_API_KEY"
+```
+
+**Credit 成本**:
+- transcript: 1 credit
+- search: 1 credit
+- channel/resolve: 免费
+- channel/latest: 免费
+- channel/videos: 1 credit/页
+- channel/search: 1 credit
+- playlist/videos: 1 credit/页
+
+**管理后台**:
+- 登录: https://transcriptapi.com/login
+- 注册: https://transcriptapi.com/signup
+- 仪表盘: https://transcriptapi.com/dashboard
+- API Keys: https://transcriptapi.com/dashboard/api-keys
+- 账单: https://transcriptapi.com/billing
+
+**套餐价格**:
+- 免费版: 100 credits / 月
+- Starter: $5/月 (1,000 credits)
+- Pro: $20/月 (5,000 credits)
+- Business: $50/月 (15,000 credits)
+
+**⚠️ 安全提醒**:
+- API Key 包含在 MEMORY.md 中，请注意保密
+- 建议定期更换 API Key
+- 不要将 API Key 分享给他人
 
 ---
 
@@ -1226,4 +1317,4 @@ function markMessageProcessed(accountId: string, messageId: string): void {
 ---
 
 **记录维护人**: openclaw ⚡
-**最后更新**: 2026-03-13 02:43 (GMT+8)
+**最后更新**: 2026-03-13 16:15 (GMT+8)
