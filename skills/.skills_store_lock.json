@@ -18,6 +18,12 @@
       "zip_url": "https://lightmake.site/api/v1/download?slug=youtube-full",
       "source": "skillhub",
       "version": "1.4.1"
+    },
+    "browser-proxy": {
+      "name": "Browser Proxy",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=browser-proxy",
+      "source": "skillhub",
+      "version": "1.0.0"
     }
   }
 }
