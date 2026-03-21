@@ -1,0 +1,96 @@
+{
+  "name": "storyboard-generator",
+  "displayName": "分镜生成器",
+  "description": "基于 MiniMax API 的轻量级分镜生成工具，支持 9 宫格/25 宫格分镜生成、图片切割、编辑与合并导出",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/storyboard-generator",
+  "license": "MIT",
+  "category": "ai-content",
+  "tags": ["分镜", "AI 生成", "MiniMax", "图片生成", "视频制作"],
+  "platform": ["linux", "macos", "windows"],
+  "runtime": {
+    "python": ">=3.8"
+  },
+  "dependencies": {
+    "pip": [
+      "requests>=2.31.0",
+      "Pillow>=10.0.0",
+      "numpy>=1.24.0"
+    ]
+  },
+  "commands": {
+    "generate": {
+      "description": "生成分镜图片",
+      "usage": "generate [选项]",
+      "examples": [
+        "generate --grid 3x3 --prompts \"镜头1|镜头2|...\"",
+        "generate --grid 5x5 --style real --image ref.jpg"
+      ]
+    },
+    "cut": {
+      "description": "切割分镜图片",
+      "usage": "cut <图片文件>",
+      "examples": [
+        "cut output.jpg",
+        "cut output.jpg --output ./cuts"
+      ]
+    },
+    "merge": {
+      "description": "合并分镜图片",
+      "usage": "merge <图片目录> [选项]",
+      "examples": [
+        "merge ./cuts --grid 3x3",
+        "merge ./cuts --output merged.jpg"
+      ]
+    },
+    "config": {
+      "description": "配置 MiniMax API",
+      "usage": "config <API Key>",
+      "examples": [
+        "config sk-cp-USkP97AOSiAG7SnxdGNFFbeOmBTYhYid2vwIkh4g0CWWcYFhrVwmvirCkw7NrclzFQbiOXUZdM0HJe2gAFiD8zft5RMgxSBY3-TyxsgSLESB21G35ydsa9s"
+      ]
+    }
+  },
+  "skills": {
+    "setup": {
+      "description": "初始化技能环境"
+    },
+    "generate-storyboard": {
+      "description": "生成分镜图片",
+      "parameters": {
+        "grid": {
+          "type": "string",
+          "description": "网格大小 (3x3, 5x5)",
+          "default": "3x3",
+          "enum": ["3x3", "5x5"]
+        },
+        "prompts": {
+          "type": "string",
+          "description": "分镜提示词，用 | 分隔",
+          "required": true
+        },
+        "style": {
+          "type": "string",
+          "description": "图片风格",
+          "default": "real",
+          "enum": ["real", "anime", "3d", "cartoon"]
+        },
+        "refImage": {
+          "type": "string",
+          "description": "参考图片路径",
+          "required": false
+        }
+      }
+    }
+  },
+  "files": [
+    "SKILL.md",
+    "README.md",
+    "storyboard-generator.py",
+    "grid-maker.py",
+    "cutter.py",
+    "merger.py",
+    "config.json"
+  ]
+}

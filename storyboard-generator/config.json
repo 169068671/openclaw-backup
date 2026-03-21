@@ -1,0 +1,8 @@
+{
+  "apiKey": "",
+  "model": "minimax-image-01",
+  "defaultGrid": "3x3",
+  "defaultStyle": "real",
+  "outputDir": "~/storyboard-output",
+  "maxRetries": 3
+}
